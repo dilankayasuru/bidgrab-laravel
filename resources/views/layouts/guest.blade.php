@@ -18,6 +18,11 @@
         @livewireStyles
     </head>
     <body>
+        <div class="flex items-center py-3 shadow-lg fixed w-full top-0 bg-white z-20 justify-start ps-[7vw] pe-[7vw]">
+            <div class="logo">
+                <a href={{ url('/') }} class="font-extrabold text-2xl text-blue">BidGarb</a>
+            </div>
+        </div>
         <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
             {{ $slot }}
         </div>
