@@ -20,6 +20,9 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    protected $connection = 'mongodb';
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
