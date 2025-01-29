@@ -12,9 +12,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Alpine.js -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -23,7 +20,7 @@
 </head>
 
 <body x-data="{ open: false }" class="font-sans antialiased">
-    <div class="p-4 bg-blue shadow-md md:hidden md:invisible flex justify-between items-center">
+    <div class="p-4 bg-blue shadow-md md:hidden md:invisible flex justify-between items-center sticky top-0 left-0 w-full z-50">
         <a href="{{ route('welcome') }}" class="font-extrabold text-2xl text-white">BidGrab</a>
         <button x-show="open == false" @click="open = true">
             <img src="{{ asset('icons/menu.svg') }}" alt="menu open button" class="w-8 h-8">
@@ -44,7 +41,8 @@
                     <x-dashboard.menutab label="Dashboard" routeName="dashboard" icon="home.svg" />
                     <x-dashboard.menutab label="Orders" routeName="dashboard.orders" icon="shopping_bag.svg" />
                     <x-dashboard.menutab label="Auctions" routeName="dashboard.auctions" icon="gavel.svg" />
-                    <x-dashboard.menutab label="Create new auction" routeName="dashboard.create" icon="add_circle.svg" />
+                    <x-dashboard.menutab label="Create new auction" routeName="dashboard.create"
+                        icon="add_circle.svg" />
                 </div>
                 <div class="flex items-center gap-2 absolute bottom-0 pb-8">
                     <div class="w-14 h-14 object-cover overflow-hidden border-blue-500 border shadow-md rounded-full">
@@ -60,12 +58,12 @@
         </div>
 
         <div class="pl-0 md:pr-4 md:py-4 w-full">
-            <div class="bg-white md:rounded-xl h-full">
+            <div class="bg-white md:rounded-xl h-full md:max-h-[calc(100vh-32px)] md:overflow-y-auto">
                 @yield('content')
             </div>
         </div>
     </div>
-
+    @livewireScripts
 </body>
 
 </html>
