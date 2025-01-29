@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0be999c17d75543ff7484b8de59a681",
+    "content-hash": "d3f74c65269354ad547ef48a8267a986",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2520,16 +2520,16 @@
         },
         {
             "name": "mongodb/laravel-mongodb",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/laravel-mongodb.git",
-                "reference": "39558070786b400c3a82f22ad9da3b77eb99ceaa"
+                "reference": "cc7e5ffd0e8e3a9acfebd7aa5a5aabac2fc5eac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/39558070786b400c3a82f22ad9da3b77eb99ceaa",
-                "reference": "39558070786b400c3a82f22ad9da3b77eb99ceaa",
+                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/cc7e5ffd0e8e3a9acfebd7aa5a5aabac2fc5eac4",
+                "reference": "cc7e5ffd0e8e3a9acfebd7aa5a5aabac2fc5eac4",
                 "shasum": ""
             },
             "require": {
@@ -2618,9 +2618,9 @@
             "support": {
                 "issues": "https://www.mongodb.com/support",
                 "security": "https://www.mongodb.com/security",
-                "source": "https://github.com/mongodb/laravel-mongodb/tree/5.1.0"
+                "source": "https://github.com/mongodb/laravel-mongodb/tree/5.1.1"
             },
-            "time": "2024-10-07T08:37:33+00:00"
+            "time": "2025-01-06T09:22:28+00:00"
         },
         {
             "name": "mongodb/mongodb",
@@ -9011,12 +9011,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
