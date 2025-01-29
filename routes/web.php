@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuctionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,8 +27,6 @@ Route::middleware([
             return view('dashboard.auctions');
         })->name('auctions');
 
-        Route::get('/create', function () {
-            return view('dashboard.create');
-        })->name('create');
+        Route::get('/create', [AuctionController::class, 'create'])->name('create');
     });
 });

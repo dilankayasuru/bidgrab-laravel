@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Auction;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
@@ -11,23 +13,64 @@ class CreateAuctionForm extends Component
     use WithFileUploads;
 
     #[Validate(['images.*' => 'image|max:1024'])]
+    #[Validate('required|array|min:1|max:5')]
     public $images = [];
+
+    #[Validate('required|min:5')]
     public $title = "";
+
+    #[Validate('required|min:5')]
     public $description = "";
-    public $category = "";
+
+    #[Validate('required')]
     public $condition = "";
+
+    #[Validate('required')]
     public $duration = "";
+
+    #[Validate('required|date|after_or_equal:today')]
     public $startingDate = "";
+
+    #[Validate('required|numeric|min:150')]
     public $startingPrice = "";
+
+    #[Validate('required')]
+    public $categoryId = "";
+
+    public $categories;
+
+    public function mount()
+    {
+        $this->categories = Category::all()->pluck('name', '_id');
+    }
+
+    public function unsetImage($imageId)
+    {
+        unset($this->images[$imageId]);
+        $this->images = array_values($this->images);
+    }
 
     public function save()
     {
-        $validated = $this->validate([
-            'images.*' => 'image|max:1024'
+        $this->validate();
+
+        $uploads = [];
+        foreach ($this->images as $image) {
+            $path = $image->store('auctions', 'public');
+            $uploads[] = $path;
+        }
+
+        Auction::create([
+            'title' => $this->title,
+            'description' => $this->description,
+            'images' => $uploads,
+            'category_id' => $this->categoryId,
+            'condition' => $this->condition,
+            'duration' => $this->duration,
+            'starting_date' => $this->startingDate,
+            'starting_price' => $this->startingPrice,
         ]);
 
-        foreach ($this->images as $image) {
-            $image->store('auctions', 'public');
-        }
+        return redirect()->route('dashboard');
     }
 }
