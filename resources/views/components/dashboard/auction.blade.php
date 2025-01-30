@@ -29,9 +29,10 @@
             <img src="{{ asset('icons/edit.svg') }}" alt="edit">
         </a>
 
-        <button x-show="{{ $relist ? 'true' : 'false' }}" class="flex items-center gap-1">
+        <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}"
+            x-show="{{ $relist ? 'true' : 'false' }}" class="flex items-center gap-1">
             <img src="{{ asset('icons/renew.svg') }}" alt="relist">Relist
-        </button>
+        </a>
 
         <button x-show="{{ $ship ? 'true' : 'false' }}" class="flex items-center gap-1">
             <img src="{{ asset('icons/shipping.svg') }}" alt="relist">Ship
