@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class AuctionController extends Controller
 {
+
+    public function userAuctions(Request $request)
+    {
+        try {
+            $user = auth()->user();
+            $status = $request->input('status');
+            $auctions = $user->auctions()->get();
+
+            return view('dashboard.auctions', compact('auctions'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e], 400);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */

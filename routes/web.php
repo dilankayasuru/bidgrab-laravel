@@ -23,9 +23,10 @@ Route::middleware([
             return view('dashboard.orders');
         })->name('orders');
 
-        Route::get('/auctions', function () {
-            return view('dashboard.auctions');
-        })->name('auctions');
+        Route::get('/auctions', [AuctionController::class, 'userAuctions'])->name('auctions');
+        // Route::get('/auctions', function () {
+        //     return view('dashboard.auctions');
+        // })->name('auctions');
 
         Route::get('/create', [AuctionController::class, 'create'])->name('create');
     });

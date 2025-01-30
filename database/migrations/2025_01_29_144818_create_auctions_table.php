@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use MongoDB\Laravel\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(User::class);
             $table->text('condition');
             $table->integer('duration');
             $table->dateTime('starting_date');

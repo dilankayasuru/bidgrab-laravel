@@ -60,7 +60,7 @@ class CreateAuctionForm extends Component
             $uploads[] = $path;
         }
 
-        Auction::create([
+        $auction = Auction::create([
             'title' => $this->title,
             'description' => $this->description,
             'images' => $uploads,
@@ -70,6 +70,8 @@ class CreateAuctionForm extends Component
             'starting_date' => $this->startingDate,
             'starting_price' => $this->startingPrice,
         ]);
+
+        auth()->user()->auctions()->save($auction);
 
         return redirect()->route('dashboard');
     }
