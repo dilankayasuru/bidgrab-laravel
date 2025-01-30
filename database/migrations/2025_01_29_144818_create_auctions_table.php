@@ -19,8 +19,10 @@ return new class extends Migration
             $table->text('description');
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(User::class);
+            $table->foreignId('winner_id')->nullable();
             $table->text('condition');
             $table->integer('duration');
+            $table->integer('bids');
             $table->dateTime('starting_date');
             $table->float('starting_price');
             $table->timestamps();

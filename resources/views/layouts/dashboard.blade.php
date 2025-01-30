@@ -20,7 +20,8 @@
 </head>
 
 <body x-data="{ open: false }" class="font-sans antialiased">
-    <div class="p-4 bg-blue shadow-md md:hidden md:invisible flex justify-between items-center sticky top-0 left-0 w-full z-50">
+    <div
+        class="p-4 bg-blue shadow-md md:hidden md:invisible flex justify-between items-center sticky top-0 left-0 w-full z-50">
         <a href="{{ route('welcome') }}" class="font-extrabold text-2xl text-white">BidGrab</a>
         <button x-show="open == false" @click="open = true">
             <img src="{{ asset('icons/menu.svg') }}" alt="menu open button" class="w-8 h-8">
@@ -64,6 +65,7 @@
         </div>
     </div>
     @livewireScripts
+    <script src="https://creattie.com/js/embed.js?id=3f6954fde297cd31b441" defer></script>
 </body>
 
 </html>

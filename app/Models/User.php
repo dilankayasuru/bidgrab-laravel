@@ -71,6 +71,11 @@ class User extends Authenticatable
 
     public function auctions(): HasMany
     {
-        return $this->hasMany(Auction::class);
+        return $this->hasMany(Auction::class, 'user_id');
+    }
+
+    public function auctionsWon(): HasMany
+    {
+        return $this->hasMany(Auction::class, 'winner_id');
     }
 }

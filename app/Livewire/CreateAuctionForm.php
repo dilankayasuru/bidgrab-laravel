@@ -7,6 +7,7 @@ use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
+use Carbon\Carbon;
 
 class CreateAuctionForm extends Component
 {
@@ -17,25 +18,25 @@ class CreateAuctionForm extends Component
     public $images = [];
 
     #[Validate('required|min:5')]
-    public $title = "";
+    public $title;
 
     #[Validate('required|min:5')]
-    public $description = "";
+    public $description;
 
     #[Validate('required')]
-    public $condition = "";
+    public $condition;
 
     #[Validate('required')]
-    public $duration = "";
+    public $duration;
 
     #[Validate('required|date|after_or_equal:today')]
-    public $startingDate = "";
+    public $startingDate;
 
     #[Validate('required|numeric|min:150')]
-    public $startingPrice = "";
+    public $startingPrice;
 
     #[Validate('required')]
-    public $categoryId = "";
+    public $categoryId;
 
     public $categories;
 
@@ -67,8 +68,10 @@ class CreateAuctionForm extends Component
             'category_id' => $this->categoryId,
             'condition' => $this->condition,
             'duration' => $this->duration,
-            'starting_date' => $this->startingDate,
-            'starting_price' => $this->startingPrice,
+            'starting_date' => Carbon::parse($this->startingDate),
+            'starting_price' => (float)$this->startingPrice,
+            'current_price' => (float)$this->startingPrice,
+            'bids' => 0,
         ]);
 
         auth()->user()->auctions()->save($auction);

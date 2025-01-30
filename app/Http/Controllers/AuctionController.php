@@ -13,7 +13,29 @@ class AuctionController extends Controller
         try {
             $user = auth()->user();
             $status = $request->input('status');
-            $auctions = $user->auctions()->get();
+
+            switch ($status) {
+
+                case "pending":
+                    $auctions = $user->auctions()->where('status', $status)->get();
+                    break;
+
+                case "live":
+                    $auctions = $user->auctions()->where('status', $status)->get();
+                    break;
+
+                case "sold":
+                    $auctions = $user->auctions()->where('status', 'ended')->whereNotNull('winner_id')->get();
+                    break;
+
+                case "unsold":
+                    $auctions = $user->auctions()->where('status', 'ended')->whereNull('winner_id')->get();
+                    break;
+
+                default:
+                    $auctions = $user->auctions()->get();
+                    break;
+            }
 
             return view('dashboard.auctions', compact('auctions'));
         } catch (\Exception $e) {
@@ -74,6 +96,11 @@ class AuctionController extends Controller
      */
     public function destroy(Auction $auction)
     {
-        //
+        try {
+            $auction->delete();
+            return response()->json(['message' => "Auction deleted successfully!"], 204);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 }
