@@ -78,9 +78,9 @@ class AuctionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Auction $auction)
+    public function edit()
     {
-        //
+        return view('dashboard.edit');
     }
 
     /**

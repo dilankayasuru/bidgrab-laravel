@@ -7,7 +7,8 @@
                 <div class="flex gap-2 mb-2 flex-wrap">
                     @foreach ($images as $index => $image)
                         <div class="relative">
-                            <img src="{{ $image->temporaryUrl() }}" alt="new auction image"
+                            <img src="{{ is_string($image) ? Storage::url($image) : $image->temporaryUrl() }}"
+                                alt="new auction image"
                                 class="rounded-md w-16 h-16 object-cover aspect-square border-zinc-300 border">
                             <button wire:click="unsetImage({{ $index }})" type="button"
                                 class="absolute top-0 right-0">

@@ -24,9 +24,11 @@ Route::middleware([
         })->name('orders');
 
         Route::get('/auctions', [AuctionController::class, 'userAuctions'])->name('auctions');
-        
+
         Route::delete('/auction/delete', [AuctionController::class, 'destroy'])->name('auction.destroy');
 
         Route::get('/create', [AuctionController::class, 'create'])->name('create');
+
+        Route::get('/edit', [AuctionController::class, 'edit'])->name('edit');
     });
 });

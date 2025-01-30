@@ -25,9 +25,9 @@
             <img src="{{ asset('icons/view.svg') }}" alt="view">
         </button>
 
-        <button x-show="{{ $edit ? 'true' : 'false' }}">
+        <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}" x-show="{{ $edit ? 'true' : 'false' }}">
             <img src="{{ asset('icons/edit.svg') }}" alt="edit">
-        </button>
+        </a>
 
         <button x-show="{{ $relist ? 'true' : 'false' }}" class="flex items-center gap-1">
             <img src="{{ asset('icons/renew.svg') }}" alt="relist">Relist

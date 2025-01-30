@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class CreateAuctionForm extends Component
 {
@@ -39,10 +40,31 @@ class CreateAuctionForm extends Component
     public $categoryId;
 
     public $categories;
+    public $auctionId;
 
-    public function mount()
+    public $oldImages = [];
+
+    public function mount($auctionId = null)
     {
         $this->categories = Category::all()->pluck('name', '_id');
+        if ($auctionId) {
+            $this->loadAuction($auctionId);
+        }
+    }
+
+    public function loadAuction($auctionId)
+    {
+        $auction = Auction::findOrFail($auctionId);
+        $this->auctionId = $auction->id;
+        $this->title = $auction->title;
+        $this->description = $auction->description;
+        $this->condition = $auction->condition;
+        $this->duration = $auction->duration;
+        $this->startingDate = $auction->starting_date->format('Y-m-d');
+        $this->startingPrice = $auction->starting_price;
+        $this->categoryId = $auction->category_id;
+        $this->images = $auction->images;
+        $this->oldImages = $auction->images;
     }
 
     public function unsetImage($imageId)
@@ -56,12 +78,15 @@ class CreateAuctionForm extends Component
         $this->validate();
 
         $uploads = [];
+        foreach ($this->oldImages as $oldImage) {
+            Storage::disk('public')->delete($oldImage);
+        }
         foreach ($this->images as $image) {
             $path = $image->store('auctions', 'public');
             $uploads[] = $path;
         }
 
-        $auction = Auction::create([
+        $auctionData = [
             'title' => $this->title,
             'description' => $this->description,
             'images' => $uploads,
@@ -72,9 +97,15 @@ class CreateAuctionForm extends Component
             'starting_price' => (float)$this->startingPrice,
             'current_price' => (float)$this->startingPrice,
             'bids' => 0,
-        ]);
+        ];
 
-        auth()->user()->auctions()->save($auction);
+        if ($this->auctionId) {
+            $auction = Auction::findOrFail($this->auctionId);
+            $auction->update($auctionData);
+        } else {
+            $auction = Auction::create($auctionData);
+            auth()->user()->auctions()->save($auction);
+        }
 
         return redirect()->route('dashboard');
     }

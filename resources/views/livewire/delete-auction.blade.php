@@ -1,5 +1,5 @@
 <div x-show={{ $show }} x-data="{ show: false }">
-    <button @click="show = true">
+    <button @click="show = true" class="flex items-center">
         <img src="{{ asset('icons/delete.svg') }}" alt="delete">
     </button>
 
