@@ -15,6 +15,7 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -22,10 +23,7 @@
     @livewire('navigation-menu')
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-64px)] py-8 flex gap-4">
 
-        <div class="w-full h-full rounded-3xl overflow-hidden shadow-xl">
-            <img src="{{ Storage::url($auction->images[0]) }}" alt=""
-                class="w-full h-full object-contain bg-blue bg-opacity-10">
-        </div>
+        @livewire('image-preview', ['images' => $auction->images])
 
         <div class="w-full h-full px-4">
             <div class="mb-2 pb-4 border-b border-zinc-400">
@@ -44,10 +42,11 @@
             </div>
 
             <div class="mb-4">
-                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300">Condition: <span
-                        class="capitalize mb-2">{{ $auction->condition }}</span></p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Condition:</span>
+                    <span class="capitalize mb-2">{{ $auction->condition }}</span></p>
                 @foreach (json_decode($auction->specs) as $key => $spec)
-                    <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300">{{ ucfirst($key) }}: {{ ucfirst($spec) }}
+                    <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
+                            class="text-zinc-500">{{ ucfirst($key) }}:</span> {{ ucfirst($spec) }}
                     </p>
                 @endforeach
             </div>
@@ -85,6 +84,7 @@
             }
         }
     </script>
+    @livewireScripts
 </body>
 
 </html>

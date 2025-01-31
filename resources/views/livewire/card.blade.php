@@ -12,7 +12,7 @@
         <div class="py-4 px-2">
             <p class="font-medium text-lg mb-1">Rs. {{ number_format($auction->current_price, 2, '.') }}</p>
             <p>
-                {{ substr($auction->title, 0, length: 40) }}{{ strlen($auction->title) > 40 ? '...' : '' }}
+                {{ substr($auction->title, 0, length: 35) }}{{ strlen($auction->title) > 35 ? '...' : '' }}
             </p>
         </div>
     </div>
