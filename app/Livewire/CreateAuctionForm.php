@@ -44,6 +44,19 @@ class CreateAuctionForm extends Component
 
     public $oldImages = [];
 
+    public $itemSpecifications = [
+        'brand',
+        'model',
+        'material',
+        'size',
+        'color',
+        'dimensions',
+        'manufacturedYear',
+        'features',
+    ];
+
+    public $itemSpecs = [];
+
     public function mount($auctionId = null)
     {
         $this->categories = Category::all()->pluck('name', '_id');
@@ -97,6 +110,7 @@ class CreateAuctionForm extends Component
             'starting_price' => (float)$this->startingPrice,
             'current_price' => (float)$this->startingPrice,
             'bids' => 0,
+            'specs' => json_encode($this->itemSpecs)
         ];
 
         if ($this->auctionId) {

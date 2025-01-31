@@ -14,19 +14,30 @@
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
     @endif
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
 
     @livewire('navigation-menu')
-    <x-product-banner image="banner-1.webp">
-        <div class="w-full p-8">
-            <p class="text-3xl text-white font-bold">Your Next Great Find Awaits</p>
-            <p class="text-xl text-white font-medium">Bid, Win, and Make It Yours – Discover Treasures Today!</p>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
+        <div class="mb-8">
+            <x-product-banner image="banner-1.webp">
+                <div class="w-full p-8">
+                    <p class="text-3xl text-white font-bold">Your Next Great Find Awaits</p>
+                    <p class="text-xl text-white font-medium">Bid, Win, and Make It Yours – Discover Treasures Today!
+                    </p>
+                </div>
+            </x-product-banner>
         </div>
-    </x-product-banner>
+        <div class="grid md:grid-cols-5 gap-8">
+            @foreach ($auctions as $auction)
+                @livewire('card', ['auction' => $auction])
+            @endforeach
+        </div>
+    </main>
+    @livewireScripts
 </body>
 
 </html>

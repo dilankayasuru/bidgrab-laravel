@@ -121,13 +121,13 @@
             @enderror
         </div>
 
-        <div>
+        <div class="mb-4">
             <label class="mb-2" for="starting-price">
                 Starting price
             </label>
             <div class="flex items-center gap-2">
                 <span>LKR</span>
-                <input wire:model.live="startingPrice" required id="starting-price" min="150" type="number"
+                <input wire:model.live="startingPrice" required id="starting-price" min="150" type="number" step="0.01"
                     name="starting-price"
                     class="appearance-none rounded-lg border-zinc-500 border w-full py-3 px-5  focus:outline-none focus:shadow-outline">
             </div>
@@ -135,6 +135,23 @@
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
+
+        <div class="w-full h-px bg-zinc-300 my-4"></div>
+
+        <p class="text-zinc-500 text-lg mb-4">Item specifications - Optional</p>
+
+        <div class="md:grid md:grid-cols-2 md:gap-4">
+            @foreach ($itemSpecifications as $spec)
+                <div class="md:mb-0 mb-4">
+                    <label class="mb-2" for="{{ $spec }}">
+                        {{ ucfirst($spec) }}
+                    </label>
+                    <input id="{{ $spec }}" wire:model="itemSpecs.{{ $spec }}" type="text"
+                        class="appearance-none rounded-lg border-zinc-500 border w-full py-3 px-5  focus:outline-none focus:shadow-outline">
+                </div>
+            @endforeach
+        </div>
+
     </div>
 
     <button type="submit"

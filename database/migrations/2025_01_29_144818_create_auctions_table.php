@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('bids');
             $table->dateTime('starting_date');
             $table->float('starting_price');
+            $table->json('specs')->nullable();
             $table->timestamps();
         });
     }

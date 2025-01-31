@@ -21,24 +21,33 @@
             $ship = $status === 'ended' && $auction->winner_id !== null;
         @endphp
 
-        <button x-show="{{ $view ? 'true' : 'false' }}">
-            <img src="{{ asset('icons/view.svg') }}" alt="view">
-        </button>
+        @if ($view)
+            <a href="{{ route('auction.show', ['auction' => $auction]) }}">
+                <img src="{{ asset('icons/view.svg') }}" alt="view">
+            </a>
+        @endif
 
-        <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}" x-show="{{ $edit ? 'true' : 'false' }}">
-            <img src="{{ asset('icons/edit.svg') }}" alt="edit">
-        </a>
+        @if ($edit)
+            <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}">
+                <img src="{{ asset('icons/edit.svg') }}" alt="edit">
+            </a>
+        @endif
 
-        <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}"
-            x-show="{{ $relist ? 'true' : 'false' }}" class="flex items-center gap-1">
-            <img src="{{ asset('icons/renew.svg') }}" alt="relist">Relist
-        </a>
+        @if ($relist)
+            <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}" class="flex items-center gap-1">
+                <img src="{{ asset('icons/renew.svg') }}" alt="relist">Relist
+            </a>
+        @endif
 
-        <button x-show="{{ $ship ? 'true' : 'false' }}" class="flex items-center gap-1">
-            <img src="{{ asset('icons/shipping.svg') }}" alt="relist">Ship
-        </button>
+        @if ($ship)
+            <button class="flex items-center gap-1">
+                <img src="{{ asset('icons/shipping.svg') }}" alt="relist">Ship
+            </button>
+        @endif
 
-        @livewire('delete-auction', ['show' => $delete ? 'true' : 'false', 'auction' => $auction])
+        @if ($delete)
+            @livewire('delete-auction', ['auction' => $auction])
+        @endif
 
     </div>
 </div>

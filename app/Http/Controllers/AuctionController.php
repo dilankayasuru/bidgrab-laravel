@@ -48,7 +48,8 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        //
+        $auctions = Auction::all();
+        return view('welcome', compact('auctions'));
     }
 
     /**
@@ -62,17 +63,14 @@ class AuctionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store() {}
 
     /**
      * Display the specified resource.
      */
     public function show(Auction $auction)
     {
-        //
+        return view('auction', compact('auction'));
     }
 
     /**

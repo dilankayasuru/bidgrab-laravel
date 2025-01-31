@@ -18,7 +18,8 @@ class Auction extends Model
         'starting_date',
         'starting_price',
         'current_price',
-        'bids'
+        'bids',
+        'specs',
     ];
 
     protected $casts = [

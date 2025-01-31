@@ -3,9 +3,7 @@
 use App\Http\Controllers\AuctionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [AuctionController::class, 'index'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -32,3 +30,5 @@ Route::middleware([
         Route::get('/edit', [AuctionController::class, 'edit'])->name('edit');
     });
 });
+
+Route::get('/auction/{auction}', [AuctionController::class, 'show'])->name('auction.show');
