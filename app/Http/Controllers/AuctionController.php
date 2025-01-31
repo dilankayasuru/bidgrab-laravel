@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
@@ -49,7 +50,8 @@ class AuctionController extends Controller
     public function index()
     {
         $auctions = Auction::all();
-        return view('welcome', compact('auctions'));
+        $categories = Category::all();
+        return view('welcome', compact('auctions', 'categories'));
     }
 
     /**
