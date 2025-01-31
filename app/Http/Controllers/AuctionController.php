@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
@@ -49,9 +48,39 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        $auctions = Auction::all();
-        $categories = Category::all();
-        return view('welcome', compact('auctions', 'categories'));
+
+        $min = (float)request('min');
+        $max = (float)request('max');
+        $condition = request('condition');
+        $category = request('category');
+        $sort = request('sort');
+
+        $query = Auction::query();
+
+        if ($min > 0) {
+            $query->where('current_price', '>=', $min);
+        }
+
+        if ($max > 0) {
+            $query->where('current_price', '<=', $max);
+        }
+
+        if (!empty($condition)) {
+            $query->where('condition', $condition);
+        }
+        if (!empty($category)) {
+            $query->where('category_id', $category);
+        }
+        if (!empty($sort)) {
+            if ($sort == 'price') {
+                $query->orderBy('current_price', 'asc');
+            } elseif ($sort == 'date') {
+                $query->orderBy('created_at', 'desc');
+            }
+        }
+
+        $auctions = $query->paginate(15);
+        return view('marketplace', compact('auctions'));
     }
 
     /**
@@ -73,6 +102,13 @@ class AuctionController extends Controller
     public function show(Auction $auction)
     {
         return view('auction', compact('auction'));
+    }
+
+    public function search($keyword)
+    {
+        $auctions = Auction::where('title', 'like', "%$keyword%")
+            ->orWhere('description', 'like', "%$keyword%")->paginate(15);
+        return view('marketplace', compact('auctions'));
     }
 
     /**

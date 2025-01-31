@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>BidGrab</title>
+    <title>BidGrab | Home</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,8 +20,8 @@
 
 <body class="font-sans antialiased">
 
-    @livewire('navigation-menu')
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-64px)] py-8 flex gap-4">
+    <x-navigation />
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-4">
 
         @livewire('image-preview', ['images' => $auction->images])
 
@@ -43,7 +43,8 @@
 
             <div class="mb-4">
                 <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Condition:</span>
-                    <span class="capitalize mb-2">{{ $auction->condition }}</span></p>
+                    <span class="capitalize mb-2">{{ $auction->condition }}</span>
+                </p>
                 @foreach (json_decode($auction->specs) as $key => $spec)
                     <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
                             class="text-zinc-500">{{ ucfirst($key) }}:</span> {{ ucfirst($spec) }}
@@ -84,6 +85,7 @@
             }
         }
     </script>
+    <x-footer />
     @livewireScripts
 </body>
 

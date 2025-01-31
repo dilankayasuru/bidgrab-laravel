@@ -10,7 +10,6 @@
                 </a>
             </div>
 
-            <!-- Search bar -->
             @livewire('search')
 
             @auth

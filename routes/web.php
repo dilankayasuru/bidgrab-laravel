@@ -2,8 +2,16 @@
 
 use App\Http\Controllers\AuctionController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Auction;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
-Route::get('/', [AuctionController::class, 'index'])->name('welcome');
+Route::get('/', function () {
+
+    $auctions = Auction::orderBy('bids', 'desc')->limit(5)->get();
+    $categories = Category::all();
+    return view('welcome', compact('auctions', 'categories'));
+})->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -32,3 +40,7 @@ Route::middleware([
 });
 
 Route::get('/auction/{auction}', [AuctionController::class, 'show'])->name('auction.show');
+
+Route::get('/search/{keyword}', [AuctionController::class, 'search'])->name('auction.search');
+
+Route::get('/auctions', [AuctionController::class, 'index'])->name('marketplace');

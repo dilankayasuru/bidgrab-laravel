@@ -22,7 +22,7 @@
 
 <body class="font-sans antialiased">
 
-    @livewire('navigation-menu')
+    <x-navigation />
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
 
         <x-welcome-banner />
@@ -42,7 +42,7 @@
                     <p class="mb-8">Join our auction platform and start selling to eager bidders worldwide.
                         List
                         your items, set your price, and watch the bids roll in!</p>
-                    <a href="#"
+                    <a href="{{route('dashboard.create')}}"
                         class="duration-300 transition-all hover:bg-opacity-85 active:shadow shadow-md active:translate-y-0.5 font-medium text-white bg-black rounded-full py-2 px-4">
                         Start Selling Today!
                     </a>
@@ -53,7 +53,7 @@
         </div>
 
         <p class="font-medium text-2xl">Trending auctions</p>
-        <div class="grid md:grid-cols-5 gap-8 p-4">
+        <div class="grid md:grid-cols-5 gap-8 p-4 mb-8">
             @foreach ($auctions as $auction)
                 @livewire('card', ['auction' => $auction])
             @endforeach
