@@ -21,41 +21,79 @@
 <body class="font-sans antialiased">
 
     <x-navigation />
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-4">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex gap-4 mb-8">
+            @livewire('image-preview', ['images' => $auction->images])
 
-        @livewire('image-preview', ['images' => $auction->images])
+            <div class="w-full h-full px-4">
+                <div class="mb-2 pb-4 border-b border-zinc-400">
+                    <p class="text-2xl font-medium mb-2">{{ $auction->title }}</p>
+                    <p class="text-zinc-500 text-lg mb-2">{{ $auction->category()->first()->name }}</p>
+                    <p class="text-2xl font-bold mb-2">Rs. {{ number_format($auction->current_price, 2, '.') }}</p>
 
-        <div class="w-full h-full px-4">
-            <div class="mb-2 pb-4 border-b border-zinc-400">
-                <p class="text-2xl font-medium mb-2">{{ $auction->title }}</p>
-                <p class="text-zinc-500 text-lg mb-2">{{ $auction->category()->first()->name }}</p>
-                <p class="text-2xl font-bold mb-2">Rs. {{ number_format($auction->current_price, 2, '.') }}</p>
-
-                <div class="flex gap-2 flex-wrap">
-                    <p class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">{{ $auction->bids }}
-                        <span>{{ $auction->bids === 1 ? 'Bid' : 'Bids' }}</span>
-                    </p>
-                    <p x-data="countdown()" class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">
-                        Ends in: <span x-text="time"></span>
-                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <p class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">{{ $auction->bids }}
+                            <span>{{ $auction->bids === 1 ? 'Bid' : 'Bids' }}</span>
+                        </p>
+                        <p x-data="countdown()" class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">
+                            Ends in: <span x-text="time"></span>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-4">
-                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Condition:</span>
-                    <span class="capitalize mb-2">{{ $auction->condition }}</span>
-                </p>
-                @foreach (json_decode($auction->specs) as $key => $spec)
+                <div class="mb-4">
                     <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
-                            class="text-zinc-500">{{ ucfirst($key) }}:</span> {{ ucfirst($spec) }}
+                            class="text-zinc-500">Condition:</span>
+                        <span class="capitalize mb-2">{{ $auction->condition }}</span>
                     </p>
+                    @foreach (json_decode($auction->specs) as $key => $spec)
+                        <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
+                                class="text-zinc-500">{{ ucfirst($key) }}:</span> {{ ucfirst($spec) }}
+                        </p>
+                    @endforeach
+                </div>
+
+                <button
+                    class="hover:shadow-lg active:shadow-md active:translate-y-0.5 w-full py-2 rounded-full bg-blue text-white font-medium text-lg transition-all duration-300">Place
+                    bid</button>
+            </div>
+        </div>
+
+        <div class="flex w-full mb-8 gap-8">
+            <div class="w-full p-4 bg-blue bg-opacity-5 rounded-3xl">
+                <p class="py-1 px-2 bg-zinc-5 border-y border-zinc-300"><span class="text-zinc-500">Starting
+                        price:</span> Rs. {{ number_format($auction->starting_price, 2, '.') }}
+                </p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Duration:</span>
+                    {{ $auction->duration }} Days
+                </p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Started
+                        date:</span> {{ $auction->starting_date }}
+                </p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Ending:</span>
+                    {{ $auction->end_date }}
+                </p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Created at:</span>
+                    {{ $auction->created_at }}
+                </p>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Seller:</span>
+                    {{ $auction->user()->first()->name }}
+                </p>
+            </div>
+            <div class="w-full">
+                <p class="font-medium text-lg mb-4">Description</p>
+                <p>{{ $auction->description }}</p>
+            </div>
+        </div>
+
+        @if (count($relatedAuctions) > 0)
+            <p class="font-medium text-2xl">You might also like</p>
+            <div class="grid md:grid-cols-5 gap-8 p-4 mb-2">
+                @foreach ($relatedAuctions as $auction)
+                    @livewire('card', ['auction' => $auction])
                 @endforeach
             </div>
-
-            <button
-                class="hover:shadow-lg active:shadow-md active:translate-y-0.5 w-full py-2 rounded-full bg-blue text-white font-medium text-lg transition-all duration-300">Place
-                bid</button>
-        </div>
+        @endif
 
     </main>
     <script>

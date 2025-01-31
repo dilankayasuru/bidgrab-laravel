@@ -1,4 +1,4 @@
-<div class="max-w-60">
+<div class="">
     <div wire:click="navigate()" class="cursor-pointer">
         <div class="relative">
             <p class="absolute top-0 right-0 p-2 shadow-md rounded-bl-xl rounded-tr-xl text-sm bg-white ">

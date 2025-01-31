@@ -1,15 +1,15 @@
-<div x-data="init()" class="w-full h-full flex flex-col">
-    <div class="w-full h-full rounded-3xl bg-blue bg-opacity-10 grid place-items-center">
-        <img @mouseenter="stop = true" @mouseleave="stop = false" :src="currentImage" alt=""
-            :class="transition ? 'transform -scale-x-100' : ''"
-            class="aspect-square object-contain transition-all duration-300 w-full h-[calc(100vh-240px)]">
-    </div>
-    <div class="gap-4 w-full h-full flex justify-center items-center py-4">
+<div x-data="init()" class="w-full h-full flex gap-4 sticky top-12">
+    <div class="gap-4 h-full grid py-4">
         <template x-for="(image, index) in images" :key="index">
             <img @mouseenter="selectImage(image)" @mouseleave="stop = false" :src="image" alt=""
                 :class="image === currentImage ? 'scale-125 shadow-xl' : 'shadow-md'"
                 class="aspect-square max-w-16 object-cover rounded-lg transition-all duration-300 cursor-pointer">
         </template>
+    </div>
+    <div class="w-full h-full rounded-3xl bg-blue bg-opacity-10 grid place-items-center overflow-hidden">
+        <img @mouseenter="stop = true" @mouseleave="stop = false" :src="currentImage" alt=""
+            :class="transition ? 'opacity-70 scale-90' : ''"
+            class="aspect-square object-contain transition-all duration-300">
     </div>
 </div>
 <script>

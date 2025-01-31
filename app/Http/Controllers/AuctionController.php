@@ -101,7 +101,9 @@ class AuctionController extends Controller
      */
     public function show(Auction $auction)
     {
-        return view('auction', compact('auction'));
+        $category = $auction->category()->first();
+        $relatedAuctions = $category->auction()->where('id', '!=', $auction->id)->limit(5)->get();
+        return view('auction', compact('auction', 'relatedAuctions'));
     }
 
     public function search($keyword)
