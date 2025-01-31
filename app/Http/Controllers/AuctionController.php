@@ -79,7 +79,7 @@ class AuctionController extends Controller
             }
         }
 
-        $auctions = $query->paginate(15);
+        $auctions = $query->paginate(12);
         return view('marketplace', compact('auctions'));
     }
 
