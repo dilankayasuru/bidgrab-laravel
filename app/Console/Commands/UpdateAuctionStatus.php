@@ -49,8 +49,9 @@ class UpdateAuctionStatus extends Command
         foreach ($completedAuctions as $auction) {
             $order = new Order();
             $order->payment = null;
+            $order->status = "pending";
             $auction->order()->save($order);
-            
+
             $highestBid = $auction->highestBid;
             if ($highestBid) {
                 $user = $highestBid->user;

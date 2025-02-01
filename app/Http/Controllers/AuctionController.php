@@ -94,11 +94,6 @@ class AuctionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store() {}
-
-    /**
      * Display the specified resource.
      */
     public function show(Auction $auction)
@@ -130,14 +125,6 @@ class AuctionController extends Controller
     public function edit()
     {
         return view('dashboard.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Auction $auction)
-    {
-        //
     }
 
     /**
