@@ -12,7 +12,7 @@
         <div class="mb-4 pb-4 border-b border-zinc-500">
             <div class="mb-2 flex gap-4 items-center">
                 <img src="{{ Storage::url($auction->images[0]) }}" alt=""
-                    class="w-16 aspect-square rounded-lg shadow-md">
+                    class="w-16 aspect-square rounded-lg shadow-md object-contain">
                 <p>
                     {{ substr($auction->title, 0, length: 35) }}{{ strlen($auction->title) > 35 ? '...' : '' }}
                 </p>

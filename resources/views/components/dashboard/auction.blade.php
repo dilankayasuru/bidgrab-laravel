@@ -3,7 +3,9 @@
     <img src="{{ Storage::url($auction->images[0]) }}" alt=""
         class="w-12 h-12 aspect-square object-cover rounded border border-zinc-300">
 
-    <p class="justify-self-start">{{ $auction->title }}</p>
+    <p class="justify-self-start">
+        {{ substr($auction->title, 0, length: 50) }}{{ strlen($auction->title) > 50 ? '...' : '' }}
+    </p>
 
     <p class="capitalize">{{ $auction->status }}</p>
 
@@ -21,7 +23,7 @@
         @endphp
 
         @if ($view)
-            <a href="{{ route('auction.show', ['auction' => $auction]) }}">
+            <a href="{{ route('dashboard.preview', ['auction' => $auction]) }}">
                 <img src="{{ asset('icons/view.svg') }}" alt="view">
             </a>
         @endif

@@ -98,10 +98,10 @@ class AuctionController extends Controller
      */
     public function show(Auction $auction)
     {
-        if ($auction->status !== 'live') {
+        if (!request()->user() && $auction->status !== 'live') {
             abort(404);
         }
-        $category = $auction->category()->first();
+        $category = $auction->category;
         $relatedAuctions = $category->auction()->where([
             ['id', '!=', $auction->id],
             ['status', '==', 'live']

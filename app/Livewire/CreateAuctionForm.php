@@ -78,6 +78,7 @@ class CreateAuctionForm extends Component
         $this->categoryId = $auction->category_id;
         $this->images = $auction->images;
         $this->oldImages = $auction->images;
+        $this->itemSpecs = json_decode($auction->specs, true) ?? [];
     }
 
     public function unsetImage($imageId)
