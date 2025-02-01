@@ -37,7 +37,24 @@ class OrderController extends Controller
         }
     }
 
-    public function deliver(Order $order) {
-        
+    public function deliver(Order $order) {}
+
+    public function purchases()
+    {
+
+        $user = request()->user();
+        $status = request()->input('status');
+
+        if ($status === null || $status == "all") {
+            $orders = $user->orders;
+            return view('dashboard.purchases', compact('orders'));
+        }
+        $orders = $user->orders()->where('status', $status)->get();
+        return view('dashboard.purchases', compact('orders'));
+    }
+
+    public function checkout(Order $order)
+    {
+        return view('checkout', compact('order'));
     }
 }

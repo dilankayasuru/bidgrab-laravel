@@ -40,8 +40,9 @@
 
                 <div class="py-4">
                     <x-dashboard.menutab label="Dashboard" routeName="dashboard" icon="home.svg" />
-                    <x-dashboard.menutab label="Orders" routeName="dashboard.orders" icon="shopping_bag.svg" />
                     <x-dashboard.menutab label="Auctions" routeName="dashboard.auctions" icon="gavel.svg" />
+                    <x-dashboard.menutab label="Orders" routeName="dashboard.orders" icon="shipping-white.svg" />
+                    <x-dashboard.menutab label="Purchases" routeName="dashboard.purchases" icon="shopping_bag.svg" />
                     <x-dashboard.menutab label="Create new auction" routeName="dashboard.create"
                         icon="add_circle.svg" />
                 </div>

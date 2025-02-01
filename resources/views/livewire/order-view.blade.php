@@ -44,17 +44,28 @@
                     </span>{{ $order->status }}</div>
             </div>
             @if ($order->status == 'pending')
-                <form method="post" action="{{ route('dashboard.order.delete', ['order' => $order]) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="w-full py-2 rounded-lg text-red-500 border border-red-500 mb-1">
-                        Cancel order
-                    </button>
-                    <p class="text-sm text-zinc-500">This action is irreversible!</p>
-                </form>
+                @if (request()->routeIs('dashboard.purchases'))
+                    <form method="post" action="{{ route('stripe.checkout', $order) }}">
+                        @csrf
+                        @method('POST')
+                        <button type="submit"
+                            class="hover:bg-opacity-90 active:translate-y-0.5 duration-300 transition-all shadow-lg active:shadow-md w-full py-2 rounded-lg text-white bg-blue">
+                            Pay now
+                        </button>
+                    </form>
+                @else
+                    <form method="post" action="{{ route('dashboard.order.delete', ['order' => $order]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="w-full py-2 rounded-lg text-red-500 border border-red-500 mb-1">
+                            Cancel order
+                        </button>
+                        <p class="text-sm text-zinc-500">This action is irreversible!</p>
+                    </form>
+                @endif
             @endif
 
-            @if ($order->status == 'payed')
+            @if ($order->status == 'payed' && !request()->routeIs('dashboard.purchases'))
                 <form method="post" action="{{ route('dashboard.order.deliver', ['order' => $order]) }}">
                     @csrf
                     <button type="submit"
