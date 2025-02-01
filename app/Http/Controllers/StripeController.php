@@ -32,7 +32,8 @@ class StripeController extends Controller
             'success_url' => route('dashboard.purchases'),
             'cancel_url' => route('dashboard.purchases'),
             'metadata' => [
-                'description' => $order->auction->description,
+                'auction_id' => $order->auction->id,
+                'order_id' => $order->id,
             ],
             'shipping_address_collection' => [
                 'allowed_countries' => ['LK']

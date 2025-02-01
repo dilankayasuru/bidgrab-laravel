@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -37,9 +39,20 @@ class StripeWebhookController extends Controller
 
         if ($event->type == 'checkout.session.completed') {
             $session = $event->data->object;
-            $shipping_address = $session->shipping;
 
-            Log::info($session);
+            $address = new Address([
+                'city' => $session->shipping_details->address->city,
+                'country'  => $session->shipping_details->address->country,
+                'line1' => $session->shipping_details->address->line1,
+                'line2' => $session->shipping_details->address->line2,
+                'postal_code' => $session->shipping_details->address->postal_code,
+                'phone' => $session->customer_details->phone,
+            ]);
+
+            $order = Order::where('_id', $session->metadata->order_id)->first();
+            $order->address()->associate($address);
+            $order->status = 'payed';
+            $order->save();
         }
 
         return response()->json(['status' => 'success'], 200);

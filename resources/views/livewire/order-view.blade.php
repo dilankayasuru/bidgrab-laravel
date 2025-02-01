@@ -24,25 +24,39 @@
 
             </div>
             <div class="md:min-w-80 mb-4">
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
+                <div class="text-sm flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
                         class="text-zinc-500"><span>Order ID:</span>
                     </span>{{ $order->id }}</div>
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
+                <div class="text-sm flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
                         class="text-zinc-500"><span>Buyer:</span>
                     </span>{{ $order->user->name }}</div>
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
+                <div class="text-sm flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
                         class="text-zinc-500"><span>Amount:</span>
                     </span>Rs. {{ number_format($order->auction->highestBid->amount, 2, '.') }}</div>
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
+                <div class="text-sm flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
                         class="text-zinc-500"><span>Auction ID:</span>
                     </span>{{ $order->auction->id }}</div>
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
-                        class="text-zinc-500"><span>Address:</span>
-                    </span>{{ $order->address }}</div>
-                <div class="flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
+                <div class="text-sm flex justify-between items-center border-b border-zinc-500 pb-2 mb-2"><span
                         class="text-zinc-500"><span>Status:</span>
                     </span>{{ $order->status }}</div>
             </div>
+
+            @if ($order->address)
+                <div class="mb-4">
+                    <p>Delivery information</p>
+                    <p class="text-sm"><span class="text-zinc-500">Address line1: </span>{{ $order->address->line1 }}
+                    </p>
+                    <p class="text-sm"><span class="text-zinc-500">Address line2: </span>{{ $order->address->line2 }}
+                    </p>
+                    <p class="text-sm"><span class="text-zinc-500">City: </span>{{ $order->address->city }}</p>
+                    <p class="text-sm"><span class="text-zinc-500">Postal code:
+                        </span>{{ $order->address->postal_code }}</p>
+                    <p class="text-sm"><span class="text-zinc-500">Country: </span>{{ $order->address->country }}</p>
+                    <p class="text-sm"><span class="text-zinc-500">Phone: </span>{{ $order->address->phone }}</p>
+                </div>
+            @endif
+
+
             @if ($order->status == 'pending')
                 @if (request()->routeIs('dashboard.purchases'))
                     <form method="post" action="{{ route('stripe.checkout', $order) }}">
