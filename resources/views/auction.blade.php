@@ -114,8 +114,9 @@
                 time: '',
                 init() {
                     setInterval(() => {
-                        const now = new Date().getTime();
-                        const countDownDate = new Date("{{ $auction->end_date }}").getTime();
+                        const now = new Date(new Date()).getTime();
+                        const countDownDate = new Date("{{ $auction->end_date }}".replace(' ', 'T') + 'Z')
+                            .getTime();
                         const difference = countDownDate - now;
 
                         if (difference < 0) {

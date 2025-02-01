@@ -40,7 +40,7 @@ class BidController extends Controller
             $auction->bids()->save($bid);
             $auction->current_price = $amount;
             $auction->bid_count++;
-            $auction->highestBid()->save($bid);
+            $auction->highest_bid = $bid->id;
 
             $auction->save();
             return redirect()->route('auction.show', $auction)->with('message', "Bid placed successfully!");

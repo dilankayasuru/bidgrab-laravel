@@ -39,9 +39,9 @@ class Auction extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function highestBid(): HasOne
+    public function highestBid(): BelongsTo
     {
-        return $this->hasOne(Bid::class, 'highest_bid');
+        return $this->belongsTo(Bid::class, 'highest_bid');
     }
 
     public function bids(): HasMany
@@ -52,11 +52,10 @@ class Auction extends Model
     protected static function boot()
     {
         parent::boot();
-        static::saving(function ($auction) {
+        static::creating(function ($auction) {
             $auction->end_date = Carbon::parse($auction->start_date)
                 ->addDays((int)$auction->duration);
             $auction->status = "pending";
-            $auction->winner_id = null;
         });
     }
 }
