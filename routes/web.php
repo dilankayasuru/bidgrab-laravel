@@ -4,6 +4,7 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Auction;
 use App\Models\Category;
@@ -58,3 +59,5 @@ Route::get('/auction/{auction}', [AuctionController::class, 'show'])->name('auct
 Route::get('/search/{keyword}', [AuctionController::class, 'search'])->name('auction.search');
 
 Route::get('/auctions', [AuctionController::class, 'index'])->name('marketplace');
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'webhook'])->name('stripe.webhook');

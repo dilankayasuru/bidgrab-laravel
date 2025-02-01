@@ -36,7 +36,8 @@ class StripeController extends Controller
             ],
             'shipping_address_collection' => [
                 'allowed_countries' => ['LK']
-            ]
+            ],
+            'phone_number_collection' => ['enabled' => true],
         ]);
 
         return redirect()->away($session->url);
