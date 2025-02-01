@@ -37,7 +37,12 @@ class OrderController extends Controller
         }
     }
 
-    public function deliver(Order $order) {}
+    public function deliver(Order $order)
+    {
+        $order->status = "delivered";
+        $order->save();
+        return redirect()->route('dashboard.orders');
+    }
 
     public function purchases()
     {
