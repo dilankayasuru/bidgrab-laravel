@@ -16,9 +16,8 @@
             $status = $auction->status;
             $view = $status !== 'ended';
             $edit = $status === 'pending';
-            $delete = ($status === 'ended' && $auction->winner_id === null) || $status === 'pending';
-            $relist = $status === 'ended' && $auction->winner_id === null;
-            $ship = $status === 'ended' && $auction->winner_id !== null;
+            $delete = ($status === 'ended' && $auction->highest_bid === null) || $status === 'pending';
+            $relist = $status === 'ended' && $auction->highest_bid === null;
         @endphp
 
         @if ($view)
@@ -37,12 +36,6 @@
             <a href="{{ route('dashboard.edit', ['auctionId' => $auction->id]) }}" class="flex items-center gap-1">
                 <img src="{{ asset('icons/renew.svg') }}" alt="relist">Relist
             </a>
-        @endif
-
-        @if ($ship)
-            <button class="flex items-center gap-1">
-                <img src="{{ asset('icons/shipping.svg') }}" alt="relist">Ship
-            </button>
         @endif
 
         @if ($delete)

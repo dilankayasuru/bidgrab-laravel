@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Order;
 use Illuminate\Console\Command;
 use App\Models\Auction;
 use Carbon\Carbon;
@@ -36,6 +37,28 @@ class UpdateAuctionStatus extends Command
         Auction::where('status', 'live')
             ->where('end_date', '<=', Carbon::now())
             ->update(['status' => 'ended']);
+
+        // Complete orders
+        $completedAuctions = Auction::where([
+            ['status', 'ended'],
+            ['highest_bid', '!=', null]
+        ])->doesntHave('order')
+            ->orderBy('end_date', 'asc')
+            ->get();
+
+        foreach ($completedAuctions as $auction) {
+            $order = new Order();
+            $order->payment = null;
+            $auction->order()->save($order);
+            
+            $highestBid = $auction->highestBid;
+            if ($highestBid) {
+                $user = $highestBid->user;
+                if ($user) {
+                    $user->orders()->save($order);
+                }
+            }
+        }
 
         $this->info('Auction statuses updated successfully.');
     }

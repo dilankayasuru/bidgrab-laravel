@@ -24,16 +24,15 @@ class AuctionController extends Controller
                     $auctions = $user->auctions()->where('status', $status)->get();
                     break;
 
-                case "sold":
-                    $auctions = $user->auctions()->where('status', 'ended')->whereNotNull('winner_id')->get();
-                    break;
-
                 case "unsold":
-                    $auctions = $user->auctions()->where('status', 'ended')->whereNull('winner_id')->get();
+                    $auctions = $user->auctions()->where('status', 'ended')->whereNull('highest_bid')->get();
                     break;
 
                 default:
-                    $auctions = $user->auctions()->get();
+                    $auctions = $user->auctions()->whereNot([
+                        ['status', '!=', 'ended'],
+                        ['highest_bid', null]
+                    ])->get();
                     break;
             }
 

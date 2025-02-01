@@ -5,8 +5,8 @@ namespace App\Models;
 use MongoDB\Laravel\Eloquent\Model;
 use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Relations\HasMany;
-use MongoDB\Laravel\Relations\HasOne;
 use Carbon\Carbon;
+use MongoDB\Laravel\Relations\HasOne;
 
 class Auction extends Model
 {
@@ -47,6 +47,11 @@ class Auction extends Model
     public function bids(): HasMany
     {
         return $this->hasMany(Bid::class);
+    }
+
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class);
     }
 
     protected static function boot()
