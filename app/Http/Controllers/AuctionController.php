@@ -71,6 +71,9 @@ class AuctionController extends Controller
         if (!empty($category)) {
             $query->where('category_id', $category);
         }
+
+        $query->where('status', 'live');
+
         if (!empty($sort)) {
             if ($sort == 'price') {
                 $query->orderBy('current_price', 'asc');
@@ -102,14 +105,20 @@ class AuctionController extends Controller
     public function show(Auction $auction)
     {
         $category = $auction->category()->first();
-        $relatedAuctions = $category->auction()->where('id', '!=', $auction->id)->limit(5)->get();
+        $relatedAuctions = $category->auction()->where([
+            ['id', '!=', $auction->id],
+            ['status', '==', 'live']
+        ])->limit(5)->get();
         return view('auction', compact('auction', 'relatedAuctions'));
     }
 
     public function search($keyword)
     {
-        $auctions = Auction::where('title', 'like', "%$keyword%")
-            ->orWhere('description', 'like', "%$keyword%")->paginate(15);
+        $auctions = Auction::where('status', 'live')
+            ->where(function ($query) use ($keyword) {
+                $query->where('title', 'like', "%$keyword%")
+                    ->orWhere('description', 'like', "%$keyword%");
+            })->paginate(15);
         return view('marketplace', compact('auctions'));
     }
 

@@ -22,7 +22,7 @@
 <body class="font-sans antialiased">
 
     <x-navigation />
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex py-8 md:gap-4">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex py-8 md:gap-8">
         <div class="w-60 flex-shrink-0">
             @livewire('auction-filter')
         </div>

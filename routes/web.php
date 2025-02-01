@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\BidController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Auction;
 use App\Models\Category;
-use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-
-    $auctions = Auction::orderBy('bids', 'desc')->limit(5)->get();
+    $query = Auction::query();
+    $query->where('status', 'live');
+    $query->orderBy('bid_count', 'desc');
+    $auctions = $query->limit(5)->get();
     $categories = Category::all();
     return view('welcome', compact('auctions', 'categories'));
 })->name('welcome');
@@ -37,6 +39,8 @@ Route::middleware([
 
         Route::get('/edit', [AuctionController::class, 'edit'])->name('edit');
     });
+
+    Route::post('/place-bid/{auction}/{amount}', [BidController::class, 'create'])->name('place.bid');
 });
 
 Route::get('/auction/{auction}', [AuctionController::class, 'show'])->name('auction.show');

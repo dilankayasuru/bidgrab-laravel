@@ -15,6 +15,7 @@ class Search extends Component
     {
         if (strlen($this->keyword) > 0) {
             $this->results = Auction::where('title', 'like', "%$this->keyword%")
+                ->where('status', 'live')
                 ->get();
         } else {
             $this->results = [];

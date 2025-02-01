@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Auction;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use MongoDB\Laravel\Schema\Blueprint;
@@ -12,17 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('auctions', function (Blueprint $table) {
+        Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
+            $table->integer('amount');
             $table->foreignIdFor(User::class);
-            $table->text('condition');
-            $table->integer('duration');
-            $table->integer('bid_count');
-            $table->dateTime('starting_date');
-            $table->float('starting_price');
-            $table->json('specs')->nullable();
+            $table->foreignIdFor(Auction::class);
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('auctions');
+        Schema::dropIfExists('bids');
     }
 };

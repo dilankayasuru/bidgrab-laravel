@@ -11,20 +11,20 @@
     <div class="py-4 border-b border-zinc-400">
         <p class="mb-2">Condition</p>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" class="rounded" id="new" wire:model="condition" value="new">
+            <input type="radio" name="condition" id="new" wire:model="condition" value="new">
             <label for="new">Brand new</label>
         </div>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" class="rounded" id="used" wire:model="condition" value="used">
+            <input type="radio" name="condition" id="used" wire:model="condition" value="used">
             <label for="used">Used</label>
         </div>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" class="rounded" id="reconditioned" wire:model="condition"
+            <input type="radio" name="condition" id="reconditioned" wire:model="condition"
                 value="reconditioned">
             <label for="reconditioned">Reconditioned</label>
         </div>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" class="rounded" id="preowned" wire:model="condition"
+            <input type="radio" name="condition" id="preowned" wire:model="condition"
                 value="preowned">
             <label for="preowned">Pre-owned</label>
         </div>

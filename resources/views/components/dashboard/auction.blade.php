@@ -7,7 +7,7 @@
 
     <p class="capitalize">{{ $auction->status }}</p>
 
-    <p>{{ $auction->bids }}</p>
+    <p>{{ $auction->bid_count }}</p>
 
     <p>{{ $auction->current_price }}</p>
 

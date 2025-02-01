@@ -109,7 +109,7 @@ class CreateAuctionForm extends Component
             'starting_date' => Carbon::parse($this->startingDate),
             'starting_price' => (float)$this->startingPrice,
             'current_price' => (float)$this->startingPrice,
-            'bids' => 0,
+            'bid_count' => 0,
             'specs' => json_encode($this->itemSpecs)
         ];
 

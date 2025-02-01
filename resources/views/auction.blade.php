@@ -21,7 +21,17 @@
 <body class="font-sans antialiased">
 
     <x-navigation />
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main x-data="{ show: false }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        @if (session()->has('message'))
+            <x-notification :message="session('message')" type="success" />
+        @endif
+        @if (session()->has('error'))
+            <x-notification :message="session('error')" type="error" />
+        @endif
+
+        <livewire:place-bid x-data="{ show = this.show }" :auction="$auction" />
+
         <div class="flex gap-4 mb-8">
             @livewire('image-preview', ['images' => $auction->images])
 
@@ -32,8 +42,8 @@
                     <p class="text-2xl font-bold mb-2">Rs. {{ number_format($auction->current_price, 2, '.') }}</p>
 
                     <div class="flex gap-2 flex-wrap">
-                        <p class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">{{ $auction->bids }}
-                            <span>{{ $auction->bids === 1 ? 'Bid' : 'Bids' }}</span>
+                        <p class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">{{ $auction->bid_count }}
+                            <span>{{ $auction->bid_count === 1 ? 'Bid' : 'Bids' }}</span>
                         </p>
                         <p x-data="countdown()" class="px-2 rounded-md bg-blue bg-opacity-5 border border-blue">
                             Ends in: <span x-text="time"></span>
@@ -53,7 +63,7 @@
                     @endforeach
                 </div>
 
-                <button
+                <button @click="show = true"
                     class="hover:shadow-lg active:shadow-md active:translate-y-0.5 w-full py-2 rounded-full bg-blue text-white font-medium text-lg transition-all duration-300">Place
                     bid</button>
             </div>
@@ -73,7 +83,8 @@
                 <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Ending:</span>
                     {{ $auction->end_date }}
                 </p>
-                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Created at:</span>
+                <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Created
+                        at:</span>
                     {{ $auction->created_at }}
                 </p>
                 <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span class="text-zinc-500">Seller:</span>
