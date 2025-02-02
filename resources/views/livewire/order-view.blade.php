@@ -79,7 +79,7 @@
                 @endif
             @endif
 
-            @if ($order->status == 'payed' && !request()->routeIs('dashboard.purchases'))
+            @if ($order->status == 'payed' && !request()->routeIs('dashboard.purchases') && Gate::allows('deliver-order', $order))
                 <form method="post" action="{{ route('dashboard.order.deliver', ['order' => $order]) }}">
                     @csrf
                     <button type="submit"

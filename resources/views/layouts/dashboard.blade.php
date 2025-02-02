@@ -44,9 +44,16 @@
                     <x-dashboard.menutab label="Dashboard" routeName="dashboard" icon="home.svg" />
                     <x-dashboard.menutab label="Auctions" routeName="dashboard.auctions" icon="gavel.svg" />
                     <x-dashboard.menutab label="Orders" routeName="dashboard.orders" icon="shipping-white.svg" />
-                    <x-dashboard.menutab label="Purchases" routeName="dashboard.purchases" icon="shopping_bag.svg" />
-                    <x-dashboard.menutab label="Create new auction" routeName="dashboard.create"
-                        icon="add_circle.svg" />
+
+                    @if (Gate::allows('admin-functions'))
+                        <x-dashboard.menutab label="Users" routeName="dashboard.users" icon="person_fill.svg" />
+                    @else
+                        <x-dashboard.menutab label="Purchases" routeName="dashboard.purchases"
+                            icon="shopping_bag.svg" />
+
+                        <x-dashboard.menutab label="Create new auction" routeName="dashboard.create"
+                            icon="add_circle.svg" />
+                    @endif
                 </div>
                 <div class="flex items-center gap-2 absolute bottom-0 pb-8">
                     <div class="w-14 h-14 object-cover overflow-hidden border-blue-500 border shadow-md rounded-full">

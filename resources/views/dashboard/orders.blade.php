@@ -39,5 +39,8 @@
                 <p class="text-zinc-500">No item found in {{ $status }} orders!</p>
             </div>
         @endif
+        <div class="mt-4">
+            {{ $orders->links() }}
+        </div>
     </div>
 @endsection

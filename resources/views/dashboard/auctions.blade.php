@@ -39,5 +39,8 @@
                 <p class="text-zinc-500">No item found in {{ $status }} auctions!</p>
             </div>
         @endif
+        <div class="mt-4">
+            {{ $auctions->links() }}
+        </div>
     </div>
 @endsection

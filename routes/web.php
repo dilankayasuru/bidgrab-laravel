@@ -31,6 +31,10 @@ Route::middleware([
 
         Route::get('/auctions', [AuctionController::class, 'userAuctions'])->name('auctions');
 
+        Route::get('/users', [DashboardController::class, 'users'])->name('users');
+
+        Route::post('/create/user', [DashboardController::class, 'createUser'])->name('create.user');
+
         Route::get('/preview/{auction}', [AuctionController::class, 'show'])->name('preview');
 
         Route::delete('/auction/delete', [AuctionController::class, 'destroy'])->name('auction.destroy');

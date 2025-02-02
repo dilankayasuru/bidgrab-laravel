@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -11,16 +12,20 @@ class OrderController extends Controller
         $user = request()->user();
         $status = request()->input('status');
 
-        if ($status === null || $status == "all") {
-            $orders = Order::whereHas('auction', function ($query) use ($user) {
+        $query = Order::query();
+
+        if (!Gate::allows('admin-functions')) {
+            $query->whereHas('auction', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with('auction')->get();
-            return view('dashboard.orders', compact('orders'));
+            });
         }
 
-        $orders = Order::whereHas('auction', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->where('status', $status)->with('auction')->get();
+        if ($status !== null && $status != "all") {
+            $query->where('status', $status);
+        }
+
+        $orders = $query->with('auction')->paginate(6);
+
         return view('dashboard.orders', compact('orders'));
     }
 

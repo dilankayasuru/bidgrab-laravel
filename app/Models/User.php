@@ -56,6 +56,10 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    protected $attributes = [
+        'role' => 'user',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Auction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AuctionController extends Controller
 {
@@ -14,31 +15,38 @@ class AuctionController extends Controller
             $user = auth()->user();
             $status = $request->input('status');
 
-            switch ($status) {
+            $query = Auction::query();
 
+            if (!Gate::allows('admin-functions')) {
+                $query->where('user_id', $user->id);
+            }
+
+            switch ($status) {
                 case "pending":
-                    $auctions = $user->auctions()->where('status', $status)->get();
+                    $query->where('status', 'pending');
                     break;
 
                 case "live":
-                    $auctions = $user->auctions()->where('status', $status)->get();
+                    $query->where('status', 'live');
                     break;
 
                 case "unsold":
-                    $auctions = $user->auctions()->where('status', 'ended')->whereNull('highest_bid')->get();
+                    $query->where('status', 'ended')->whereNull('highest_bid');
                     break;
 
                 default:
-                    $auctions = $user->auctions()->whereNot([
+                    $query->whereNot([
                         ['status', '!=', 'ended'],
                         ['highest_bid', null]
-                    ])->get();
+                    ]);
                     break;
             }
 
+            $auctions = $query->orderBy('created_at', 'desc')->paginate(6);
+
             return view('dashboard.auctions', compact('auctions'));
         } catch (\Exception $e) {
-            return response()->json(['error' => $e], 400);
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 
@@ -88,23 +96,40 @@ class AuctionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        Gate::authorize('create-auction');
         return view('dashboard.create');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Auction $auction)
+    public function show(Request $request, Auction $auction)
     {
-        if (!request()->user() && $auction->status !== 'live') {
+        $user = auth()->user();
+
+        if ($request->routeIs('dashboard.preview')) {
+            if (Gate::allows('admin-functions') || Gate::allows('modify-auction', $auction)) {
+                $category = $auction->category;
+                $relatedAuctions = $category->auction()->where([
+                    ['id', '!=', $auction->id],
+                    ['status', 'live']
+                ])->limit(5)->get();
+                return view('auction', compact('auction', 'relatedAuctions'));
+            } else {
+                abort(403, 'Unauthorized action.');
+            }
+        }
+
+        if ($auction->status !== 'live' && (!Gate::allows('admin-functions') && !Gate::allows('modify-auction', $auction))) {
             abort(404);
         }
+
         $category = $auction->category;
         $relatedAuctions = $category->auction()->where([
             ['id', '!=', $auction->id],
-            ['status', '==', 'live']
+            ['status', 'live']
         ])->limit(5)->get();
         return view('auction', compact('auction', 'relatedAuctions'));
     }

@@ -34,20 +34,24 @@
                     <p class="font-medium text-xl">{{ $totalAuctions }}</p>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl shadow-md p-8 flex gap-4 w-full">
-                <div class="grid place-items-center p-2 w-fit h-fit rounded-lg bg-blue bg-opacity-5">
-                    <img src="{{ asset('icons/person.svg') }}" alt="">
+            @if (Gate::allows('admin-functions'))
+                <div class="bg-white rounded-2xl shadow-md p-8 flex gap-4 w-full">
+                    <div class="grid place-items-center p-2 w-fit h-fit rounded-lg bg-blue bg-opacity-5">
+                        <img src="{{ asset('icons/person.svg') }}" alt="">
+                    </div>
+                    <div>
+                        <p class="text-zinc-500">Total users</p>
+                        <p class="font-medium text-xl">{{ $totalUsers }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-zinc-500">Total users</p>
-                    <p class="font-medium text-xl">{{ $totalUsers }}</p>
-                </div>
-            </div>
+            @endif
         </div>
         <div class="flex justify-between gap-8 w-full">
             <div class="w-full">
-                <p class="mb-4">Sales Insights</p>
-                <canvas id="lineChart"></canvas>
+                <p>Sales Insights</p>
+                <div class="h-full grid place-items-center">
+                    <canvas id="lineChart"></canvas>
+                </div>
             </div>
             <div class="w-full">
                 <p class="mb-4">Top live auctions</p>
@@ -65,6 +69,15 @@
                         <p class="flex-grow">Rs. {{ number_format($auction->current_price, 2) }}</p>
                     </div>
                 @endforeach
+                @if (count($topAuctions) <= 0)
+                    <div class="grid place-items-center">
+                        <creattie-embed
+                            src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/109057/CUx4xD6KZF8Txrfb.json"
+                            delay="1" speed="100" frame_rate="24" trigger="loop" class="w-full max-w-80">
+                        </creattie-embed>
+                        <p class="text-zinc-500">No any live auction!</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
