@@ -32,10 +32,10 @@
 
         <livewire:place-bid x-data="{ show = this.show }" :auction="$auction" />
 
-        <div class="flex gap-4 mb-8">
+        <div class="md:flex gap-4 mb-8">
             @livewire('image-preview', ['images' => $auction->images])
 
-            <div class="w-full h-full px-4">
+            <div class="w-full h-full md:px-4">
                 <div class="mb-2 pb-4 border-b border-zinc-400">
                     <p class="text-2xl font-medium mb-2">{{ $auction->title }}</p>
                     <p class="text-zinc-500 text-lg mb-2">{{ $auction->category()->first()->name }}</p>
@@ -52,12 +52,12 @@
                 </div>
 
                 <div class="mb-4">
-                    <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
+                    <p class="py-1 md:px-2 bg-zinc-5 border-b border-zinc-300"><span
                             class="text-zinc-500">Condition:</span>
                         <span class="capitalize mb-2">{{ $auction->condition }}</span>
                     </p>
                     @foreach (json_decode($auction->specs) as $key => $spec)
-                        <p class="py-1 px-2 bg-zinc-5 border-b border-zinc-300"><span
+                        <p class="py-1 md:px-2 bg-zinc-5 border-b border-zinc-300"><span
                                 class="text-zinc-500">{{ ucfirst($key) }}:</span> {{ ucfirst($spec) }}
                         </p>
                     @endforeach
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="flex w-full mb-8 gap-8">
+        <div class="md:flex w-full mb-8 gap-8">
             <div class="w-full p-4 bg-blue bg-opacity-5 rounded-3xl">
                 <p class="py-1 px-2 bg-zinc-5 border-y border-zinc-300"><span class="text-zinc-500">Starting
                         price:</span> Rs. {{ number_format($auction->starting_price, 2, '.') }}

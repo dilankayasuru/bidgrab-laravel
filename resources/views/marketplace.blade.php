@@ -22,15 +22,24 @@
 <body class="font-sans antialiased">
 
     <x-navigation />
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex py-8 md:gap-8">
-        <div class="w-60 flex-shrink-0">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex md:py-8 md:gap-8" x-data="{ open: false }">
+        <div class="w-60 flex-shrink-0 hidden md:block">
             @livewire('auction-filter')
         </div>
         <div class="w-full">
-            <p class="text-xl font-medium">
-                {{ request()->routeIs('marketplace') ? 'Browse auctions' : 'Search results' }}
-            </p>
-            <div class="grid md:grid-cols-4 gap-8 py-4 mb-2">
+            <div x-show="open" class="md:hidden">
+                @livewire('auction-filter')
+            </div>
+            <div class="flex justify-between items-center pt-8">
+                <p class="text-xl font-medium">
+                    {{ request()->routeIs('marketplace') ? 'Browse auctions' : 'Search results' }}
+                </p>
+                <button @click="open = !open" class="md:hidden p-2">
+                    <img src="{{ asset('icons/filter.svg') }}" alt="">
+                </button>
+            </div>
+
+            <div x-show="!open" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-4 mb-2">
                 @foreach ($auctions as $auction)
                     @livewire('card', ['auction' => $auction])
                 @endforeach

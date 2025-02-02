@@ -1,4 +1,4 @@
-<div class="sticky top-10">
+<div class="md:sticky md:top-10 bg-white p-4 absolute top-24 w-full left-0">
     <p class="text-xl font-medium mb-2">Filter</p>
     <div class="py-4 border-b border-zinc-400">
         <p class="mb-2">Price - LKR</p>
@@ -19,13 +19,11 @@
             <label for="used">Used</label>
         </div>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" id="reconditioned" wire:model="condition"
-                value="reconditioned">
+            <input type="radio" name="condition" id="reconditioned" wire:model="condition" value="reconditioned">
             <label for="reconditioned">Reconditioned</label>
         </div>
         <div class="flex items-center gap-2">
-            <input type="radio" name="condition" id="preowned" wire:model="condition"
-                value="preowned">
+            <input type="radio" name="condition" id="preowned" wire:model="condition" value="preowned">
             <label for="preowned">Pre-owned</label>
         </div>
     </div>
