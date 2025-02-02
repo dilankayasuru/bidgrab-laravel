@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
+
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         Gate::define('modify-auction', function (User $user, Auction $auction) {
