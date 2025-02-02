@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-medium">Auctions</h1>
             <p class="text-zinc-500">Total Auctions: {{ count($auctions) ?? 0 }}</p>
         </div>
-        <div class="mb-4 flex gap-2 flex-wrap">
+        <div class="mb-4 flex md:gap-2 md:flex-wrap text-sm gap-1">
             @php
                 $status = request()->input('status');
             @endphp
@@ -19,7 +19,7 @@
             <a href="{{ route('dashboard.auctions', ['status' => 'unsold']) }}"
                 class="rounded-xl border border-zinc-300 px-4 py-1 duration-300 transition-all hover:shadow-md active:shadow active:translate-y-0.5 {{ $status == 'unsold' ? 'bg-blue text-white hover:bg-opacity-90' : 'bg-zinc-50 hover:bg-zinc-100' }}">Unsold</a>
         </div>
-        <div class="grid grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15">
+        <div class="grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15 hidden md:grid">
             <p>Image</p>
             <p>Title</p>
             <p>Status</p>

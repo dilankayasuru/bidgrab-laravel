@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-4">
-        <div class="flex w-full justify-between">
+        <div class="md:flex w-full justify-between md:mb-0 mb-4">
             <div>
                 <div class="mb-4">
                     <h1 class="text-2xl font-medium">Users</h1>
@@ -24,7 +24,7 @@
         </div>
 
 
-        <div class="grid grid-cols-5 place-items-center py-2 bg-blue bg-opacity-15">
+        <div class="hidden grid-cols-5 place-items-center py-2 bg-blue bg-opacity-15 md:grid">
             <p>Profile picture</p>
             <p>Name</p>
             <p>Email</p>

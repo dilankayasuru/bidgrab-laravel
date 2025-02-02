@@ -1,4 +1,4 @@
-<div class="grid grid-cols-5 place-items-center py-2 border-b border-zinc-300">
+<div class="grid md:grid-cols-5 md:place-items-center py-2 border-b border-zinc-300">
 
     <img src="{{ $user->profile_photo_url }}" alt=""
         class="w-12 h-12 aspect-square object-cover rounded-full border border-zinc-300">

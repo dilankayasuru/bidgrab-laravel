@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-medium">Purchases</h1>
             <p class="text-zinc-500">Total purchases: {{ count($orders) ?? 0 }}</p>
         </div>
-        <div class="mb-4 flex gap-2 flex-wrap">
+        <div class="mb-4 flex gap-2 flex-wrap text-sm md:text-[16px]">
             @php
                 $status = request()->input('status');
             @endphp
@@ -19,7 +19,7 @@
             <a href="{{ route('dashboard.purchases', ['status' => 'delivered']) }}"
                 class="rounded-xl border border-zinc-300 px-4 py-1 duration-300 transition-all hover:shadow-md active:shadow active:translate-y-0.5 {{ $status == 'delivered' ? 'bg-blue text-white hover:bg-opacity-90' : 'bg-zinc-50 hover:bg-zinc-100' }}">Delivered</a>
         </div>
-        <div class="grid grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15">
+        <div class="md:grid hidden grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15">
             <p>Image</p>
             <p>Title</p>
             <p>Status</p>

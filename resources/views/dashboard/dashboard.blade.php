@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-medium">Overview</h1>
             <p class="text-zinc-500 text-sm">Key Insights at a Glance</p>
         </div>
-        <div class="grid grid-cols-4 place-items-center gap-8 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center gap-8 mb-8">
             <div class="bg-white rounded-2xl shadow-md p-8 flex gap-4 w-full">
                 <div class="grid place-items-center p-2 w-fit h-fit rounded-lg bg-blue bg-opacity-5">
                     <img src="{{ asset('icons/wallet.svg') }}" alt="">
@@ -46,11 +46,13 @@
                 </div>
             @endif
         </div>
-        <div class="flex justify-between gap-8 w-full">
+        <div class="flex flex-col lg:flex-row justify-between gap-8 w-full">
             <div class="w-full">
-                <p>Sales Insights</p>
-                <div class="h-full grid place-items-center">
-                    <canvas id="lineChart"></canvas>
+                <div class="h-full bg-white p-4 rounded-2xl shadow-md">
+                    <p>Sales Insights</p>
+                    <div class="w-full h-full grid place-items-center">
+                        <canvas id="lineChart"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="w-full">
@@ -61,7 +63,7 @@
                             class="w-11 h-11 object-cover rounded-lg border border-zinc-300">
                         <div class="flex-grow">
                             <p>
-                                {{ substr($auction->title, 0, length: 20) }}{{ strlen($auction->title) > 20 ? '...' : '' }}
+                                {{ substr($auction->title, 0, 20) }}{{ strlen($auction->title) > 20 ? '...' : '' }}
                             </p>
                             <p class="text-zinc-500 text-sm">{{ $auction->category->name }}</p>
                         </div>

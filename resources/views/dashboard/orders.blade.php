@@ -19,7 +19,7 @@
             <a href="{{ route('dashboard.orders', ['status' => 'delivered']) }}"
                 class="rounded-xl border border-zinc-300 px-4 py-1 duration-300 transition-all hover:shadow-md active:shadow active:translate-y-0.5 {{ $status == 'delivered' ? 'bg-blue text-white hover:bg-opacity-90' : 'bg-zinc-50 hover:bg-zinc-100' }}">Delivered</a>
         </div>
-        <div class="grid grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15">
+        <div class="hidden grid-cols-6 place-items-center py-2 bg-blue bg-opacity-15 md:grid">
             <p>Image</p>
             <p>Title</p>
             <p>Status</p>

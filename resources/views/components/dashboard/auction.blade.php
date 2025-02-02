@@ -1,4 +1,4 @@
-<div class="grid grid-cols-6 place-items-center py-2 border-b border-zinc-300">
+<div class="grid md:grid-cols-6 md:place-items-center py-2 border-b border-zinc-300">
 
     <img src="{{ Storage::url($auction->images[0]) }}" alt=""
         class="w-12 h-12 aspect-square object-cover rounded border border-zinc-300">
@@ -9,9 +9,9 @@
 
     <p class="capitalize">{{ $auction->status }}</p>
 
-    <p>{{ $auction->bid_count }}</p>
+    <p>{{ $auction->bid_count }} Bids</p>
 
-    <p>{{ $auction->current_price }}</p>
+    <p>Rs. {{ number_format($auction->current_price, 2, '.') }}</p>
 
     <div class="flex items-center gap-2 justify-evenly">
         @php

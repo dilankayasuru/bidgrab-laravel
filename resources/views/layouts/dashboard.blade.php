@@ -62,7 +62,7 @@
                     </div>
                     <div>
                         <p class="text-white">{{ Auth::user()->name }}</p>
-                        <p class="text-sm text-white">Customer</p>
+                        <p class="text-sm text-white capitalize">{{ Auth::user()->role }}</p>
                     </div>
                 </div>
             </div>

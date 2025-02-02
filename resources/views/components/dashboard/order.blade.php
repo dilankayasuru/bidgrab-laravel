@@ -1,4 +1,4 @@
-<div class="grid grid-cols-6 place-items-center py-2 border-b border-zinc-300">
+<div class="grid md:grid-cols-6 md:place-items-center py-2 border-b border-zinc-300">
     @php
         $auction = $order->auction;
     @endphp
