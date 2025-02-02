@@ -17,8 +17,8 @@
             @foreach ($results as $auction)
                 <a href="{{ route('auction.show', ['auction' => $auction]) }}"
                     class="cursor-pointer flex gap-4 items-center">
-                    <img class="h-16 aspect-square rounded-lg shadow-md" src="{{ Storage::url($auction->images[0]) }}"
-                        alt="">
+                    <img class="h-16 aspect-square rounded-lg shadow-md"
+                        src="{{ asset(Storage::url($auction->images[0])) }}" alt="">
                     <div>
                         <p>
                             {{ substr($auction->title, 0, length: 35) }}{{ strlen($auction->title) > 35 ? '...' : '' }}

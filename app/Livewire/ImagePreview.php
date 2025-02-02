@@ -13,7 +13,7 @@ class ImagePreview extends Component
     {
         $imageUrls = [];
         foreach ($images as $image) {
-            $imageUrls[] = Storage::url($image);
+            $imageUrls[] = asset(Storage::url($image));
         }
         $this->images = $imageUrls;
     }

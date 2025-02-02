@@ -3,7 +3,7 @@
         $auction = $order->auction;
     @endphp
 
-    <img src="{{ Storage::url($auction->images[0]) }}" alt=""
+    <img src="{{ asset(Storage::url($auction->images[0])) }}" alt=""
         class="w-12 h-12 aspect-square object-cover rounded border border-zinc-300">
 
     <p class="justify-self-start">

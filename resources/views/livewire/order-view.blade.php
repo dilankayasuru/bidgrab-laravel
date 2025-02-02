@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="flex gap-4 mb-4">
-                <img src="{{ Storage::url($order->auction->images[0]) }}" alt=""
+                <img src="{{ asset(Storage::url($order->auction->images[0])) }}" alt=""
                     class="w-16 aspect-square object-cover rounded-lg shadow-md">
                 <div>
                     <p>

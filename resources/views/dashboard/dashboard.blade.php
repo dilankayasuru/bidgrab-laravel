@@ -59,7 +59,7 @@
                 <p class="mb-4">Top live auctions</p>
                 @foreach ($topAuctions as $auction)
                     <div class="flex gap-4 w-full items-center pb-4 mb-4 border-b border-zinc-300">
-                        <img src="{{ Storage::url($auction->images[0]) }}" alt=""
+                        <img src="{{ asset(Storage::url($auction->images[0])) }}" alt=""
                             class="w-11 h-11 object-cover rounded-lg border border-zinc-300">
                         <div class="flex-grow">
                             <p>

@@ -5,7 +5,7 @@
                 {{ $auction->bid_count }}
                 <span>{{ $auction->bid_count === 1 ? 'Bid' : 'Bids' }}</span>
             </p>
-            <img src="{{ Storage::url($auction->images[0]) }}" alt=""
+            <img src="{{ asset(Storage::url($auction->images[0])) }}" alt=""
                 class="aspect-video md:aspect-square object-cover rounded-xl shadow-md">
         </div>
 
