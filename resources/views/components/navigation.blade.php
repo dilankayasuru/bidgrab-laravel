@@ -1,7 +1,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
+        <div class="md:pt-0 pt-2 md:flex md:justify-between h-24 md:h-16 md:items-center grid grid-cols-2 items-center">
 
             <!-- Logo -->
             <div class="shrink-0 flex items-center">
@@ -129,27 +129,26 @@
                         </x-dropdown>
                     </div>
                 </div>
+                <!-- Hamburger -->
+                <div class="-me-2 flex items-center sm:hidden col-start-2 row-start-1 justify-self-end">
+                    <button @click="open = ! open"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                        <svg class="size-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             @else
                 <a href="{{ route('login') }}"
-                    class="leading-none bg-blue text-white py-2 px-4 rounded-md transition-all duration-300 hover:shadow-lg hover:bg-blue-800 active:shadow-md active:translate-y-0.5">
+                    class="col-start-2 row-start-1 justify-self-end w-fit leading-none bg-blue text-white py-2 px-4 rounded-md transition-all duration-300 hover:shadow-lg hover:bg-blue-800 active:shadow-md active:translate-y-0.5">
                     Sign in
                 </a>
             @endauth
 
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="size-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
         </div>
     </div>
 

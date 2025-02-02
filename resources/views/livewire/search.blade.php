@@ -1,4 +1,5 @@
-<div class="gird place-items-center absolute top-0 left-1/2 -translate-x-1/2 pt-[11px] z-10">
+<div
+    class="mt-1 md:mt-0 col-start-1 col-span-2 gird place-items-center md:absolute md:top-0 md:left-1/2 md:-translate-x-1/2 md:pt-[11px] z-10">
     <div class="w-full px-4 bg-white rounded-full shadow-sm flex justify-between max-w-md border-zinc-200 border">
         <input type="text" placeholder="Search Products" id="search" wire:model.live="keyword" autocomplete="off"
             class="border-none appearance-none outline-none !ring-offset-0 !ring-0 !shadow-none w-full">
