@@ -14,7 +14,6 @@ class AuctionFilter extends Component
     public $condition;
     public $selectedCategory;
     public $sort;
-
     public $result;
 
     public function mount()

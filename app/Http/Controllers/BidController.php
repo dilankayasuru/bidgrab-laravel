@@ -16,15 +16,11 @@ class BidController extends Controller
         try {
 
             if ($auction->status !== 'live') {
-                return redirect()->route('auction.show', $auction)->with('error', "Auction is expired!");
+                return redirect()->route('auction.show', $auction)->with('error', "Auction is not live!");
             }
 
             if (request()->user()->id === $auction->user()->first()->id) {
                 return redirect()->route('auction.show', $auction)->with('error', "You can not bid on your own auction!");
-            }
-
-            if ($auction->status !== "live") {
-                return redirect()->route('auction.show', $auction)->with('error', "Auction is not started yet!");
             }
 
             if ($amount < $auction->current_price) {
