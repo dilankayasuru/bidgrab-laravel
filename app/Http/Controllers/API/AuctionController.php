@@ -6,6 +6,7 @@ use App\Models\Auction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
@@ -35,13 +36,14 @@ class AuctionController extends Controller
             $query->where('condition', $request->input('condition'));
         }
 
-        $auctions = $query->paginate(10);
+        $auctions = $query->get();
 
         foreach ($auctions as $auction) {
             $auction->images = array_map(function ($image) {
                 return asset('storage/' . $image);
             }, $auction->images);
             $auction->specs = json_decode($auction->specs);
+            $auction->categoryName = $auction->category->name;
         }
 
         return response()->json($auctions);
