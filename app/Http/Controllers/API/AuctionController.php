@@ -150,12 +150,14 @@ class AuctionController extends Controller
             $auction->images = array_map(function ($image) {
                 return asset('storage/' . $image);
             }, $auction->images);
+            $auction->categoryName = $auction->category->name;
         }
 
         return response()->json($auctions);
     }
 
-    public function trending() {
+    public function trending()
+    {
         $query = Auction::query();
         $query->where('status', 'live');
         $query->orderBy('bid_count', 'desc');
