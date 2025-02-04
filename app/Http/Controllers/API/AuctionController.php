@@ -159,6 +159,15 @@ class AuctionController extends Controller
         $query->where('status', 'live');
         $query->orderBy('bid_count', 'desc');
         $auctions = $query->limit(5)->get();
+
+        foreach ($auctions as $auction) {
+            $auction->images = array_map(function ($image) {
+                return asset('storage/' . $image);
+            }, $auction->images);
+            $auction->specs = json_decode($auction->specs);
+            $auction->categoryName = $auction->category->name;
+        }
+
         return response()->json($auctions);
     }
 }
