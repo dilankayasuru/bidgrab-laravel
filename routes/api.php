@@ -27,7 +27,7 @@ Route::prefix('auctions')->group(function () {
     Route::put('update/{auction}', [AuctionController::class, 'update'])->middleware('auth:sanctum');
 });
 
-Route::post('bid/{auction}', [BidController::class, 'create'])->middleware('auth:sanctum');
+Route::post('bid/{auction}', [BidController::class, 'placeBid'])->middleware('auth:sanctum');
 
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{category}', [CategoryController::class, 'auctions']);
