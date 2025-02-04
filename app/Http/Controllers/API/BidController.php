@@ -46,9 +46,11 @@ class BidController extends Controller
     }
 
 
-    public function create(Auction $auction, $amount)
+    public function create(Auction $auction)
     {
         try {
+
+            $amount = request()->input('amount');
 
             if ($auction->status !== 'live') {
                 return response()->json(['message' => 'Auction is not live!'], 400);
