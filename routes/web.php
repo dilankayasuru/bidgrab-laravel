@@ -9,6 +9,7 @@ use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Auction;
 use App\Models\Category;
+use Illuminate\Support\Facades\Http;
 
 Route::get('/', function () {
     $query = Auction::query();
@@ -66,3 +67,11 @@ Route::get('/search/{keyword}', [AuctionController::class, 'search'])->name('auc
 Route::get('/auctions', [AuctionController::class, 'index'])->name('marketplace');
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'webhook'])->name('stripe.webhook');
+
+Route::get('/proxy', function () {
+    $url = request('url');
+    $response = Http::get($url);
+    return response($response->body(), $response->status())
+        ->header('Content-Type', $response->header('Content-Type'))
+        ->header('Access-Control-Allow-Origin', '*');
+});

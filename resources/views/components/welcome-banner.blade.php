@@ -8,7 +8,8 @@
             <span>Explore Auctions Now!</span> <img src="{{ asset('icons/rocket.svg') }}" alt="" class="w-4">
         </a>
     </div>
-    <creattie-embed src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/109057/jm6Munq66RgAyPj0.json" delay="1"
+    @csrf
+    <creattie-embed src="{{url('/proxy?url=https://d1jj76g3lut4fe.cloudfront.net/saved_colors/109057/jm6Munq66RgAyPj0.json')}}" delay="1"
         speed="100" frame_rate="24" trigger="loop" class="w-full max-w-xs md:max-w-96">
     </creattie-embed>
 </div>
