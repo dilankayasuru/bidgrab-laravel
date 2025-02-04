@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function auctions(Category $category)
     {
-        $auctions = $category->auction;
+        $auctions = $category->auction()->where('status', 'live')->get();
         foreach ($auctions as $auction) {
             $auction->images = array_map(function ($image) {
                 return asset('storage/' . $image);

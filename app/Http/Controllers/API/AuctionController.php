@@ -15,6 +15,8 @@ class AuctionController extends Controller
     {
         $query = Auction::query();
 
+        $query->where('status', 'live');
+
         if ($request->has('min')) {
             $query->where('current_price', '>=', (float)$request->input('min'));
         }
