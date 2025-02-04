@@ -154,4 +154,12 @@ class AuctionController extends Controller
 
         return response()->json($auctions);
     }
+
+    public function trending() {
+        $query = Auction::query();
+        $query->where('status', 'live');
+        $query->orderBy('bid_count', 'desc');
+        $auctions = $query->limit(5)->get();
+        return response()->json($auctions, 200);
+    }
 }
