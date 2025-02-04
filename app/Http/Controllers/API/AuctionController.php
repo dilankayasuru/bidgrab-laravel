@@ -6,7 +6,6 @@ use App\Models\Auction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
@@ -160,6 +159,6 @@ class AuctionController extends Controller
         $query->where('status', 'live');
         $query->orderBy('bid_count', 'desc');
         $auctions = $query->limit(5)->get();
-        return response()->json($auctions, 200);
+        return response()->json($auctions);
     }
 }

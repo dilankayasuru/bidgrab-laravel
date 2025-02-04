@@ -25,7 +25,6 @@ Route::prefix('auctions')->group(function () {
     Route::get('{auction}', [AuctionController::class, 'show']);
     Route::post('create', [AuctionController::class, 'store'])->middleware('auth:sanctum');
     Route::put('update/{auction}', [AuctionController::class, 'update'])->middleware('auth:sanctum');
-    Route::get('trending', [AuctionController::class, 'trending']);
 });
 
 Route::post('bid/{auction}/{amount}', [BidController::class, 'create'])->middleware('auth:sanctum');
@@ -38,3 +37,5 @@ Route::get('orders', [OrderController::class, 'index'])->middleware('auth:sanctu
 Route::post('deliver/{order}', [OrderController::class, 'deliver'])->middleware('auth:sanctum');
 
 Route::post('pay/{order}', [StripeController::class, 'checkout'])->middleware('auth:sanctum')->name('api.pay');
+
+Route::get('trending', [AuctionController::class, 'trending']);
