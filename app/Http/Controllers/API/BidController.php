@@ -14,7 +14,7 @@ class BidController extends Controller
     public function placeBid(Request $request, Auction $auction)
     {        
         $validator = Validator::make($request->all(), [
-            'amount' => 'required|numeric|min:' . $auction->current_price,
+            'amount' => 'required|numeric|min:' . $auction->current_price + 1,
         ]);
 
         if ($validator->fails()) {
