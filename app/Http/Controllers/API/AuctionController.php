@@ -144,7 +144,7 @@ class AuctionController extends Controller
             ->where(function ($query) use ($keyword) {
                 $query->where('title', 'like', "%$keyword%")
                     ->orWhere('description', 'like', "%$keyword%");
-            })->paginate(15);
+            })->get();
 
         foreach ($auctions as $auction) {
             $auction->images = array_map(function ($image) {

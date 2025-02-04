@@ -39,3 +39,4 @@ Route::post('deliver/{order}', [OrderController::class, 'deliver'])->middleware(
 Route::post('pay/{order}', [StripeController::class, 'checkout'])->middleware('auth:sanctum')->name('api.pay');
 
 Route::get('trending', [AuctionController::class, 'trending']);
+
