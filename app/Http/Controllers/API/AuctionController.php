@@ -55,7 +55,7 @@ class AuctionController extends Controller
         }, $auction->images);
 
         $auction->specs = json_decode($auction->specs);
-        $auction->categoryName = $auction->specs->category->name;
+        $auction->categoryName = $auction->category->name;
 
         return response()->json($auction, 200);
     }
