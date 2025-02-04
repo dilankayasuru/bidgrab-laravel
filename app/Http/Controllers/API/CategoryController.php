@@ -25,6 +25,7 @@ class CategoryController extends Controller
                 return asset('storage/' . $image);
             }, $auction->images);
             $auction->specs = json_decode($auction->specs);
+            $auction->categoryName = $category->name;
         }
         return response()->json(['auctions' => $auctions, 'category' => $category]);
     }
