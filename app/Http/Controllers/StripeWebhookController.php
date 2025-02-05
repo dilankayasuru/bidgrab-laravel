@@ -55,7 +55,7 @@ class StripeWebhookController extends Controller
             $order->save();
             return response()->json(['status' => 'success'], 200);
         }
-        if ($event->type == "payment_intent.succeeded") {
+        if ($event->type == "charge.succeeded") {
             $session = $event->data->object;
 
             $address = new Address([
