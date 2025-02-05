@@ -198,4 +198,17 @@ class AuctionController extends Controller
 
         return response()->json($auctions);
     }
+
+    public function delete(Auction $auction)
+    {
+        if ($auction->status != "pending") {
+            return response()->json(['message' => "Auction can not delete!"], 400);
+        }
+        try {
+            $auction->delete();
+            return response()->json(['message' => "Auction deleted successfully!"], 204);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+    }
 }
