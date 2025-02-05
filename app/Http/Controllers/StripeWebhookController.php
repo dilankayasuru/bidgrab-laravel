@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class StripeWebhookController extends Controller
 {
@@ -54,16 +52,10 @@ class StripeWebhookController extends Controller
             $order->status = 'payed';
             $order->payment = $session->payment_intent;
             $order->save();
-            return response()->json(['status' => 'success'], 201);
+            return response()->json(['status' => 'success'], 200);
         }
-
         if ($event->type == "charge.succeeded") {
             $session = $event->data->object;
-
-            $existingOrder = Order::where('_id', $session->metadata->order_id)->first();
-            if ($existingOrder != null) {
-                return response()->json(['status' => 'success'], 200);
-            }
 
             $address = new Address([
                 'city' => $session->billing_details->address->city,
@@ -77,8 +69,9 @@ class StripeWebhookController extends Controller
             $order = Order::where('_id', $session->metadata->order_id)->first();
             $order->address()->associate($address);
             $order->status = 'payed';
+            $order->payment = $session->payment_intent;
             $order->save();
-            return response()->json(['status' => 'success'], 201);
+            return response()->json(['status' => 'success'], 200);
         }
     }
 }
