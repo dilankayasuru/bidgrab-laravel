@@ -182,4 +182,20 @@ class AuctionController extends Controller
 
         return response()->json($auctions);
     }
+
+    public function userAuctions(Request $request)
+    {
+
+        $auctions = request()->user()->auctions;
+
+        foreach ($auctions as $auction) {
+            $auction->images = array_map(function ($image) {
+                return asset('storage/' . $image);
+            }, $auction->images);
+            $auction->specs = json_decode($auction->specs);
+            $auction->categoryName = $auction->category->name;
+        }
+
+        return response()->json($auctions);
+    }
 }
