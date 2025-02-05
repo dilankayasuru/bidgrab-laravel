@@ -36,8 +36,34 @@ class StripeWebhookController extends Controller
                 return response()->json(['message' => 'Invalid signature!'], 400);
             }
         }
+
+        if ($event->type == 'checkout.session.completed') {
+            $session = $event->data->object;
+
+            $address = new Address([
+                'city' => $session->shipping_details->address->city,
+                'country'  => $session->shipping_details->address->country,
+                'line1' => $session->shipping_details->address->line1,
+                'line2' => $session->shipping_details->address->line2,
+                'postal_code' => $session->shipping_details->address->postal_code,
+                'phone' => $session->customer_details->phone,
+            ]);
+
+            $order = Order::where('_id', $session->metadata->order_id)->first();
+            $order->address()->associate($address);
+            $order->status = 'payed';
+            $order->payment = $session->payment_intent;
+            $order->save();
+            return response()->json(['status' => 'success'], 201);
+        }
+
         if ($event->type == "charge.succeeded") {
             $session = $event->data->object;
+
+            $existingOrder = Order::where('_id', $session->metadata->order_id)->first();
+            if ($existingOrder != null) {
+                return response()->json(['status' => 'success'], 200);
+            }
 
             $address = new Address([
                 'city' => $session->billing_details->address->city,
@@ -52,7 +78,7 @@ class StripeWebhookController extends Controller
             $order->address()->associate($address);
             $order->status = 'payed';
             $order->save();
+            return response()->json(['status' => 'success'], 201);
         }
-        return response()->json(['status' => 'success'], 200);
     }
 }
