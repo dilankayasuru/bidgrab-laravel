@@ -32,4 +32,18 @@ class OrderController extends Controller
         $order->save();
         return response()->json(['message' => 'Order delivered successfully!'], 200);
     }
+
+    public function orders() {
+        $user = Auth::user();
+        $orders = Order::whereHas('auction', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with('auction')->get();
+        
+        foreach ($orders as $order) {
+            $order->auction->images = array_map(function ($image) {
+                return asset('storage/' . $image);
+            }, $order->auction->images);
+        }
+        return response()->json($orders);
+    }
 }

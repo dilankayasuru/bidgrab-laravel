@@ -34,6 +34,7 @@ Route::get('categories/{category}', [CategoryController::class, 'auctions']);
 Route::get('search', [AuctionController::class, 'search']);
 
 Route::get('purchases', [OrderController::class, 'index'])->middleware('auth:sanctum');
+Route::get('orders', [OrderController::class, 'orders'])->middleware('auth:sanctum');
 Route::post('deliver/{order}', [OrderController::class, 'deliver'])->middleware('auth:sanctum');
 
 Route::post('pay/{order}', [StripeController::class, 'checkout'])->middleware('auth:sanctum')->name('api.pay');
