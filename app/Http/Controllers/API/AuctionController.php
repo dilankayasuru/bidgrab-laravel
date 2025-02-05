@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AuctionController extends Controller
@@ -64,6 +65,7 @@ class AuctionController extends Controller
 
     public function store(Request $request)
     {
+        Log::info($request);
         try {
 
             $validatedData = Validator::make($request->only('title', 'description', 'starting_price', 'category_id', 'condition', 'images', 'duration', 'starting_date'), [
