@@ -51,7 +51,6 @@ class StripeWebhookController extends Controller
             $order = Order::where('_id', $session->metadata->order_id)->first();
             $order->address()->associate($address);
             $order->status = 'payed';
-            $order->payment = $session->payment_intent;
             $order->save();
         }
         return response()->json(['status' => 'success'], 200);
