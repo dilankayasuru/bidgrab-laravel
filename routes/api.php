@@ -25,7 +25,7 @@ Route::prefix('auctions')->group(function () {
     Route::get('{auction}', [AuctionController::class, 'show']);
     Route::post('create', [AuctionController::class, 'store'])->middleware('auth:sanctum');
     Route::put('update/{auction}', [AuctionController::class, 'update'])->middleware('auth:sanctum');
-    Route::get('/user', [AuctionController::class, 'userAuctions'])->middleware('auth:sanctum');
+    Route::get('/own/user', [AuctionController::class, 'userAuctions'])->middleware('auth:sanctum');
 });
 
 Route::post('bid/{auction}', [BidController::class, 'placeBid'])->middleware('auth:sanctum');
