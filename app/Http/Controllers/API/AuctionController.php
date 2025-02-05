@@ -76,13 +76,18 @@ class AuctionController extends Controller
                 'starting_date' => 'required|date|after_or_equal:today',
                 'starting_price' => 'required|numeric|min:150',
                 'category_id' => 'required|exists:categories,id',
-                'images' => 'required|array|min:1|max:5',
+                'images' => 'required',
                 'images.*' => 'image|max:1024',
             ])->validate();
 
+            $images = $request->file('images');
+            if (!is_array($images)) {
+                $images = [$images];
+            }
+
             $uploads = array_map(function ($image) {
-                return $image->store();
-            }, $validatedData['images']);
+                return $image->store('auctions', 'public');
+            }, $images);
 
             $auctionData = [
                 'title' => $validatedData['title'],
@@ -98,6 +103,8 @@ class AuctionController extends Controller
                 'specs' => $request->input('specs')
             ];
             $auction = Auction::create($auctionData);
+
+            request()->user()->auctions()->save($auction);
 
             return response()->json($auction, 201);
         } catch (ValidationException $error) {
