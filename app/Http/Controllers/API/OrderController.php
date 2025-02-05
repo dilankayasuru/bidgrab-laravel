@@ -8,13 +8,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+use function PHPSTORM_META\map;
+
 class OrderController extends Controller
 {
     use AuthorizesRequests;
     public function index()
     {
         $user = Auth::user();
-        $orders = Order::where('user_id', $user->id)->with('auction')->paginate(10);
+        $orders = Order::where('user_id', $user->id)->with('auction')->get();
+        foreach ($orders as $order) {
+            $order->auction->images = array_map(function ($image) {
+                return asset('storage/' . $image);
+            }, $order->auction->images);
+        }
         return response()->json($orders);
     }
 
@@ -25,5 +32,4 @@ class OrderController extends Controller
         $order->save();
         return response()->json(['message' => 'Order delivered successfully!'], 200);
     }
-    
 }
