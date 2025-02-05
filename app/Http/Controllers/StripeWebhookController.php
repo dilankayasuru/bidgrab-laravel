@@ -53,8 +53,25 @@ class StripeWebhookController extends Controller
             $order->address()->associate($address);
             $order->status = 'payed';
             $order->save();
+            return response()->json(['status' => 'success'], 200);
         }
+        if ($event->type == "payment_intent.succeeded") {
+            $session = $event->data->object;
 
-        return response()->json(['status' => 'success'], 200);
+            $address = new Address([
+                'city' => $session->billing_details->address->city,
+                'country'  => $session->billing_details->address->country,
+                'line1' => $session->billing_details->address->line1,
+                'line2' => $session->billing_details->address->line2,
+                'postal_code' => $session->billing_details->address->postal_code,
+                'phone' => $session->billing_details->phone,
+            ]);
+
+            $order = Order::where('_id', $session->metadata->order_id)->first();
+            $order->address()->associate($address);
+            $order->status = 'payed';
+            $order->save();
+            return response()->json(['status' => 'success'], 200);
+        }
     }
 }
